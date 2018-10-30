@@ -1,6 +1,6 @@
-package com.example.cln62.onlineshoppingapp;
+package com.example.cln62.onlineshoppingapp.ui.home;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -10,31 +10,57 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.cln62.onlineshoppingapp.R;
+import com.example.cln62.onlineshoppingapp.adapter.RecyclerviewCategoryAdapter;
+import com.example.cln62.onlineshoppingapp.ui.checkout.CheckOutActivity;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+public class HomeActivity extends AppCompatActivity implements HomeContract.View,
+        NavigationView.OnNavigationItemSelectedListener {
+
+    HomePresenter homePresenter;
     private static final String TAG = "homeactivity";
     private Toolbar mToolbar;
     private TextView tv_toolbarTitle, tv_username;
-    private ImageButton ib_cart;
+    private ImageButton imageButtonCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        initView();
+        homePresenter = new HomePresenter(this);
+        homePresenter.initView();
+
+        imageButtonCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homePresenter.cartCllicked();
+            }
+        });
     }
 
-    private void initView() {
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        return false;
+    }
 
+
+    @Override
+    public void proceedCheckOut() {
+        Intent i = new Intent(this, CheckOutActivity.class);
+        startActivity(i);
+    }
+
+    @Override
+    public void initViewConfirm() {
         //toolbar
         mToolbar = findViewById(R.id.myToolbar);
-        ib_cart = mToolbar.findViewById(R.id.ib_cart);
+        imageButtonCart = mToolbar.findViewById(R.id.ib_cart);
         setSupportActionBar(mToolbar);
 
         //drawer
@@ -47,21 +73,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         //recycler view
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_home, new CategoryFragment(), null).commit();
+/*        getSupportFragmentManager().beginTransaction().replace(R.id.content_home, new CategoryFragment(), null).commit();
 
-        /*RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerAdapter mAdapter = new RecyclerAdapter();
+        RecyclerviewCategoryAdapter mAdapter = new RecyclerviewCategoryAdapter();
 
 
         mRecyclerView.setAdapter(mAdapter);*/
-
     }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        return false;
-    }
-
-
 }

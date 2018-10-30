@@ -1,7 +1,9 @@
-package com.example.cln62.onlineshoppingapp;
+package com.example.cln62.onlineshoppingapp.ui.checkout;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.cln62.onlineshoppingapp.R;
 
 public class CartActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.cln62.onlineshoppingapp;
+package com.example.cln62.onlineshoppingapp.ui.login;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -9,6 +9,8 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.example.cln62.onlineshoppingapp.R;
 
 public class EditTextWithClear extends AppCompatEditText {
 

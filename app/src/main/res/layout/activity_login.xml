@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
+    tools:context=".ui.login.LoginActivity"
     tools:layout_editor_absoluteY="25dp">
 
-    <com.example.cln62.onlineshoppingapp.EditTextWithClear
-        android:id="@+id/editTextUsn"
+    <com.example.cln62.onlineshoppingapp.ui.login.EditTextWithClear
+        android:id="@+id/editTextMb"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:ems="10"
-        android:hint="Username"
+        android:hint="Mobile"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsn"
+        app:layout_constraintTop_toBottomOf="@+id/editTextMb"
         android:orientation="horizontal">
 
         <EditText
@@ -84,7 +84,7 @@
         android:layout_width="100dp"
         android:layout_height="0dp"
         android:layout_marginTop="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextUsn"
+        app:layout_constraintBottom_toTopOf="@+id/editTextMb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
