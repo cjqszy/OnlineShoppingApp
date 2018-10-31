@@ -1,5 +1,7 @@
 package com.example.cln62.onlineshoppingapp.ui.login;
 
+import com.example.cln62.onlineshoppingapp.pojo.LoginProfile;
+
 public interface LoginContract {
     
     interface Presenter{
@@ -17,6 +19,6 @@ public interface LoginContract {
 
         void loginConfirm();
 
-        void loginSuccess(String username);
+        void loginSuccess(LoginProfile loginProfile);
     }
 }

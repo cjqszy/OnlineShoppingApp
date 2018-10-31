@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,7 +18,11 @@ import android.widget.TextView;
 
 import com.example.cln62.onlineshoppingapp.R;
 import com.example.cln62.onlineshoppingapp.adapter.RecyclerviewCategoryAdapter;
+//import com.example.cln62.onlineshoppingapp.network.ImageLoader;
+import com.example.cln62.onlineshoppingapp.pojo.Category;
 import com.example.cln62.onlineshoppingapp.ui.checkout.CheckOutActivity;
+
+import java.util.List;
 
 
 public class HomeActivity extends AppCompatActivity implements HomeContract.View,
@@ -28,11 +33,17 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private Toolbar mToolbar;
     private TextView tv_toolbarTitle, tv_username;
     private ImageButton imageButtonCart;
+    String userId, apiKey;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        userId = getIntent().getStringExtra("id");
+        apiKey = getIntent().getStringExtra("apikey");
+        Log.i("aaa2", userId);
+
         homePresenter = new HomePresenter(this);
         homePresenter.initView();
 
@@ -73,13 +84,19 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         navigationView.setNavigationItemSelectedListener(this);
 
         //recycler view
-/*        getSupportFragmentManager().beginTransaction().replace(R.id.content_home, new CategoryFragment(), null).commit();
+        CategoryFragment categoryFragment = new CategoryFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", userId);
+        bundle.putString("apikey", apiKey);
+        categoryFragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_home, categoryFragment, null).commit();
 
-        RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
+/*        RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerviewCategoryAdapter mAdapter = new RecyclerviewCategoryAdapter();
 
-
+        imageLoader = new ImageLoader();
+        List<Category> list = imageLoader.loadImage();
+        RecyclerviewCategoryAdapter mAdapter = new RecyclerviewCategoryAdapter(list, this);
         mRecyclerView.setAdapter(mAdapter);*/
     }
 }

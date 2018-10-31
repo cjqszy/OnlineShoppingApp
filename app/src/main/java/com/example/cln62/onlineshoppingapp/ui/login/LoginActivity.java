@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cln62.onlineshoppingapp.network.NetworkLogIn;
+import com.example.cln62.onlineshoppingapp.pojo.LoginProfile;
 import com.example.cln62.onlineshoppingapp.ui.home.HomeActivity;
 import com.example.cln62.onlineshoppingapp.R;
 import com.example.cln62.onlineshoppingapp.ui.signup.SignupActivity;
@@ -53,6 +55,13 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 loginPresenter.login();
             }
         });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 
     @Override
@@ -80,15 +89,18 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     public void loginConfirm() {
         String mobile = etMobile.getText().toString();
         String password = etPassword.getText().toString();
-        networkLogIn = new NetworkLogIn();
+        networkLogIn = new NetworkLogIn(this);
         networkLogIn.login(mobile, password, this);
-
     }
 
     @Override
-    public void loginSuccess(String username) {
-        Toast.makeText(this, "Welcome " + username, Toast.LENGTH_SHORT).show();
+    public void loginSuccess(LoginProfile loginProfile) {
+        Toast.makeText(this, "Welcome " + loginProfile.getFname(), Toast.LENGTH_SHORT).show();
         Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+        String id = loginProfile.getId();
+        String apikey = loginProfile.getAppapikey();
+        i.putExtra("id", id);
+        i.putExtra("apikey", apikey);
         startActivity(i);
     }
 }
