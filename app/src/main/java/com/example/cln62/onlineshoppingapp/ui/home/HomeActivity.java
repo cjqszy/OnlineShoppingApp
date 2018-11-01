@@ -3,11 +3,11 @@ package com.example.cln62.onlineshoppingapp.ui.home;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,8 +18,9 @@ import android.widget.TextView;
 
 import com.example.cln62.onlineshoppingapp.R;
 import com.example.cln62.onlineshoppingapp.adapter.RecyclerviewCategoryAdapter;
-//import com.example.cln62.onlineshoppingapp.network.ImageLoader;
+import com.example.cln62.onlineshoppingapp.network.ImageLoader;
 import com.example.cln62.onlineshoppingapp.pojo.Category;
+import com.example.cln62.onlineshoppingapp.pojo.SubCategory;
 import com.example.cln62.onlineshoppingapp.ui.checkout.CheckOutActivity;
 
 import java.util.List;
@@ -34,6 +35,8 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private TextView tv_toolbarTitle, tv_username;
     private ImageButton imageButtonCart;
     String userId, apiKey;
+    private ImageLoader imageLoader;
+    CategoryFragment categoryFragment;
 
 
     @Override
@@ -53,13 +56,13 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
                 homePresenter.cartCllicked();
             }
         });
+
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         return false;
     }
-
 
     @Override
     public void proceedCheckOut() {
@@ -84,7 +87,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         navigationView.setNavigationItemSelectedListener(this);
 
         //recycler view
-        CategoryFragment categoryFragment = new CategoryFragment();
+        categoryFragment = new CategoryFragment();
         Bundle bundle = new Bundle();
         bundle.putString("id", userId);
         bundle.putString("apikey", apiKey);
@@ -95,8 +98,37 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         imageLoader = new ImageLoader();
-        List<Category> list = imageLoader.loadImage();
+        List<Category> list = imageLoader.loadCategoryImage();
         RecyclerviewCategoryAdapter mAdapter = new RecyclerviewCategoryAdapter(list, this);
         mRecyclerView.setAdapter(mAdapter);*/
+    }
+
+    @Override
+    public void categoryClickedConfirmed(String subId) {
+        imageLoader = new ImageLoader(this);
+        imageLoader.loadSubCategoryImage(userId, apiKey, subId);
+    }
+
+    @Override
+    public void showSubCategory(List<Category> list) {
+        RecyclerviewCategoryAdapter mAdapter = new RecyclerviewCategoryAdapter(list, this);
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
+
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public void categoryListened(String subId) {
+        homePresenter.categoryClicked(subId);
+        Log.i("aaa4", subId);
+    }
+
+    @Override
+    public void onBackPressed() {
+        homePresenter.comeBack();
+    }
+
+    @Override
+    public void comBackConfirm() {
+        categoryFragment.resetCategory();
     }
 }

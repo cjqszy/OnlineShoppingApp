@@ -19,6 +19,7 @@ public class RecyclerviewCategoryAdapter extends RecyclerView.Adapter<Recyclervi
 
     List<Category> mList;
     Context context;
+    private OnItemClickListener mOnItemClickListener;
 
     public RecyclerviewCategoryAdapter(List<Category> mList, Context context) {
         this.mList = mList;
@@ -30,7 +31,10 @@ public class RecyclerviewCategoryAdapter extends RecyclerView.Adapter<Recyclervi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(
                 R.layout.category_itemlayout, viewGroup, false);
-        return new ViewHolder(view);
+
+        final ViewHolder viewHolder = new ViewHolder(view);
+
+        return viewHolder;
     }
 
     @Override
@@ -42,19 +46,39 @@ public class RecyclerviewCategoryAdapter extends RecyclerView.Adapter<Recyclervi
                 .into(viewHolder.imageViewCategory);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imageViewCategory;
         TextView textViewCategory;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             imageViewCategory = itemView.findViewById(R.id.image_category);
             textViewCategory = itemView.findViewById(R.id.text_category);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(mOnItemClickListener != null) {
+                mOnItemClickListener.onItemClick(v, getAdapterPosition());
+            }
         }
     }
 
     @Override
     public int getItemCount() {
         return mList.size();
+    }
+
+
+
+    public void setOnItemClickListener(OnItemClickListener itemClickListener){
+        mOnItemClickListener = itemClickListener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(View view, int position);
     }
 }

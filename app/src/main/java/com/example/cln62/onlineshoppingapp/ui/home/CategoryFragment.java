@@ -18,10 +18,13 @@ import com.example.cln62.onlineshoppingapp.pojo.Category;
 
 import java.util.List;
 
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends Fragment implements RecyclerviewCategoryAdapter.OnItemClickListener{
 
     private ImageLoader imageLoader;
     String userId, apiKey;
+    List<Category> list;
+    RecyclerviewCategoryAdapter mAdapter;
+    RecyclerView mRecyclerView;
 
     @Nullable
     @Override
@@ -36,15 +39,28 @@ public class CategoryFragment extends Fragment {
     }
 
     private void initRecyclerView(View view) {
-        RecyclerView mRecyclerView = view.findViewById(R.id.recyclerview_home);
+        mRecyclerView = view.findViewById(R.id.recyclerview_home);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        imageLoader = new ImageLoader();
-        Log.i("aaa3", userId);
-        Log.i("aaa3", apiKey);
-        List<Category> list = imageLoader.loadImage(userId, apiKey);
-        RecyclerviewCategoryAdapter mAdapter = new RecyclerviewCategoryAdapter(list, getContext());
+        imageLoader = new ImageLoader(getContext());
+
+        list = imageLoader.loadCategoryImage(userId, apiKey);
+        mAdapter = new RecyclerviewCategoryAdapter(list, getContext());
+        mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
 
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        String subId = list.get(position).getCid();
+        Log.i("aaa3", subId);
+        ((HomeActivity) getActivity()).categoryListened(subId);
+
+    }
+
+    public void resetCategory() {
+        mRecyclerView.setAdapter(mAdapter);
     }
 }
