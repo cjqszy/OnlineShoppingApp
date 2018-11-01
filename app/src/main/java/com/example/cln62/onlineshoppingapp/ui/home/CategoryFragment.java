@@ -12,19 +12,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cln62.onlineshoppingapp.R;
+import com.example.cln62.onlineshoppingapp.adapter.ProductListAdapter;
 import com.example.cln62.onlineshoppingapp.adapter.RecyclerviewCategoryAdapter;
 import com.example.cln62.onlineshoppingapp.network.ImageLoader;
 import com.example.cln62.onlineshoppingapp.pojo.Category;
+import com.example.cln62.onlineshoppingapp.pojo.Product;
 
 import java.util.List;
 
-public class CategoryFragment extends Fragment implements RecyclerviewCategoryAdapter.OnItemClickListener{
+public class CategoryFragment extends Fragment implements RecyclerviewCategoryAdapter.OnItemClickListener,
+        ProductListAdapter.ClickListener{
 
     private ImageLoader imageLoader;
     String userId, apiKey;
     List<Category> list;
     RecyclerviewCategoryAdapter mAdapter;
     RecyclerView mRecyclerView;
+    List<Category> subCategory;
+    List<Product> productList;
 
     @Nullable
     @Override
@@ -54,13 +59,47 @@ public class CategoryFragment extends Fragment implements RecyclerviewCategoryAd
 
     @Override
     public void onItemClick(View view, int position) {
-        String subId = list.get(position).getCid();
-        Log.i("aaa3", subId);
-        ((HomeActivity) getActivity()).categoryListened(subId);
+        String cid = list.get(position).getCid();
+        Log.i("aaa3", cid);
+        ((HomeActivity) getActivity()).categoryListened(cid);
+    }
 
+    @Override
+    public void onItemClick(View view, int position, String cid) {
+        String scid = subCategory.get(position).getCid(); //actually should be scid, because using the same pojo(Category) for category
+        // and subcategory, so the first attribute still called cid, but for subcategory it actually is scid
+        Log.i("aaa3", cid);
+        Log.i("aaa3", scid);
+        ((HomeActivity) getActivity()).categoryListened(cid, scid);
     }
 
     public void resetCategory() {
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public void showSubCategoryConfirm(List<Category> list, String cid) {
+        RecyclerviewCategoryAdapter mAdapter = new RecyclerviewCategoryAdapter(list, getContext());
+        mAdapter.setOnItemClickListener(this, cid);
+//        RecyclerView mRecyclerView = view.findViewById(R.id.recyclerview_home);
+
+        mRecyclerView.setAdapter(mAdapter);
+        subCategory = list;
+    }
+
+    @Override
+    public void itemClicked(View view, int position) {
+        Product product = productList.get(position);
+        String productName = product.getPname();
+        HomeContract.View homeContract = (HomeContract.View) getActivity();
+        homeContract.dataTransferMethod(productName);
+    }
+
+    public void showProductListConfirm(List<Product> resList) {
+        ProductListAdapter mAdapter = new ProductListAdapter(getContext(), resList);
+        mAdapter.setClickListener(this);
+
+//        RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
+        mRecyclerView.setAdapter(mAdapter);
+        productList = resList;
     }
 }

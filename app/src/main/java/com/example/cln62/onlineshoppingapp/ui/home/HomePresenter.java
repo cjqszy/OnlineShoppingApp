@@ -21,13 +21,18 @@ public class HomePresenter implements HomeContract.Presenter{
     }
 
     @Override
-    public void categoryClicked(String subId) {
-        view.categoryClickedConfirmed(subId);
-        Log.i("aaa5", subId);
+    public void categoryClicked(String cid) {
+        view.categoryClickedConfirmed(cid);
+        Log.i("aaa5", cid);
     }
 
     @Override
     public void comeBack() {
         view.comBackConfirm();
+    }
+
+    @Override
+    public void categoryClicked(String cid, String scid) {
+        view.categoryClickedConfirmed(cid, scid);
     }
 }

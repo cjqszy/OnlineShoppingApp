@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.cln62.onlineshoppingapp.constants.Constants;
 import com.example.cln62.onlineshoppingapp.pojo.Category;
+import com.example.cln62.onlineshoppingapp.pojo.Product;
 import com.example.cln62.onlineshoppingapp.pojo.SubCategory;
 import com.example.cln62.onlineshoppingapp.ui.home.HomeActivity;
 import com.example.cln62.onlineshoppingapp.utils.AppController;
@@ -78,10 +79,10 @@ public class ImageLoader {
         return resList;
     }
 
-    public List<Category> loadSubCategoryImage(final String userId, final String apiKey, String subId) {
+    public List<Category> loadSubCategoryImage(final String userId, final String apiKey, final String cid) {
         List<Category> resList;
 
-        String url = Constants.SUBCATEGORYURL + subId + Constants.APIKEY
+        String url = Constants.SUBCATEGORYURL + cid + Constants.APIKEY
                 + apiKey + Constants.USERID + userId;
 
         JsonObjectRequest JsonReq = new JsonObjectRequest(Request.Method.GET,
@@ -101,7 +102,7 @@ public class ImageLoader {
                         resList2 = new ArrayList<>();
                         resList2.add(new Category(subCategoryId, subCaterogyName, subCaterogyDescription, subCaterogyImageUrl));
                         Log.i(TAG, "1 " + String.valueOf(resList2.size()));
-                        ((HomeActivity)context).showSubCategory(resList2);
+                        ((HomeActivity)context).showSubCategory(resList2, cid);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -118,5 +119,47 @@ public class ImageLoader {
         AppController.getInstance().addToRequestQueue(JsonReq, tag_json_obj);
 
         return resList2;
+    }
+
+    public void loadProductList(String userId, String apiKey, String cid, String scid) {
+        String url = Constants.PRODUCTURL + cid + "&scid=" + scid + Constants.APIKEY
+                + apiKey + Constants.USERID + userId;
+
+        Log.i("4", url);
+
+        JsonObjectRequest JsonReq = new JsonObjectRequest(Request.Method.GET,
+                url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i(TAG, response.toString());
+                Log.i(TAG, "request sent");
+                try {
+                    JSONArray jsonArray = response.getJSONArray("products");
+                    List<Product> resList = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String productId = jsonObject.getString("id");
+                        String pname = jsonObject.getString("pname");
+                        String quantity = jsonObject.getString("quantity");
+                        String price = jsonObject.getString("prize");
+                        String description = jsonObject.getString("discription");
+                        String image = jsonObject.getString("image");
+
+                        resList.add(new Product(productId, pname, quantity, price, description, image));
+                    }
+                    ((HomeActivity)context).showProductList(resList);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Log.i(TAG, "error");
+            }
+        });
+        AppController.getInstance().addToRequestQueue(JsonReq, tag_json_obj);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.cln62.onlineshoppingapp.ui.home;
 
 import com.example.cln62.onlineshoppingapp.pojo.Category;
+import com.example.cln62.onlineshoppingapp.pojo.Product;
 
 import java.util.List;
 
@@ -11,9 +12,11 @@ public interface HomeContract {
 
         void initView();
 
-        void categoryClicked(String subId);
+        void categoryClicked(String cid);
 
         void comeBack();
+
+        void categoryClicked(String cid, String scid);
     }
 
     interface View{
@@ -24,8 +27,14 @@ public interface HomeContract {
 
         void categoryClickedConfirmed(String subId);
 
-        void showSubCategory(List<Category> resList2);
+        void showSubCategory(List<Category> list, String cid);
 
         void comBackConfirm();
+
+        void categoryClickedConfirmed(String cid, String scid);
+
+        void showProductList(List<Product> resList);
+
+        public void dataTransferMethod(String id);
     };
 }
