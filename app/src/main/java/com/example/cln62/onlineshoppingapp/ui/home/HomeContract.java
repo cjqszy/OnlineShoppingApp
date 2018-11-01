@@ -35,6 +35,6 @@ public interface HomeContract {
 
         void showProductList(List<Product> resList);
 
-        public void dataTransferMethod(String id);
+        public void dataTransferMethod(Product product);
     };
 }

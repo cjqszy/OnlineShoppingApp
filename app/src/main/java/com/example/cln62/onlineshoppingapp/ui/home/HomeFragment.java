@@ -20,7 +20,7 @@ import com.example.cln62.onlineshoppingapp.pojo.Product;
 
 import java.util.List;
 
-public class CategoryFragment extends Fragment implements RecyclerviewCategoryAdapter.OnItemClickListener,
+public class HomeFragment extends Fragment implements RecyclerviewCategoryAdapter.OnItemClickListener,
         ProductListAdapter.ClickListener{
 
     private ImageLoader imageLoader;
@@ -89,9 +89,8 @@ public class CategoryFragment extends Fragment implements RecyclerviewCategoryAd
     @Override
     public void itemClicked(View view, int position) {
         Product product = productList.get(position);
-        String productName = product.getPname();
         HomeContract.View homeContract = (HomeContract.View) getActivity();
-        homeContract.dataTransferMethod(productName);
+        homeContract.dataTransferMethod(product);
     }
 
     public void showProductListConfirm(List<Product> resList) {

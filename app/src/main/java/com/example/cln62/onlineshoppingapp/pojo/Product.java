@@ -2,6 +2,9 @@ package com.example.cln62.onlineshoppingapp.pojo;
 
 public class Product {
 
+    public static String PRODUCT_NAME_KEY = "pname";
+    public static String PRODUCT_IMAGE_KEY = "image";
+
     String id;
     String pname;
     String quantity;

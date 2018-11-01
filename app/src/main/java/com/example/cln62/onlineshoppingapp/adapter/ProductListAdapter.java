@@ -81,6 +81,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     public interface ClickListener
     {
-        public void itemClicked(View view, int position);
+        void itemClicked(View view, int position);
     }
 }

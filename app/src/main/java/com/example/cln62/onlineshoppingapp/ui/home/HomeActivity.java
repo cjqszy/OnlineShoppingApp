@@ -19,7 +19,7 @@ import com.example.cln62.onlineshoppingapp.network.ImageLoader;
 import com.example.cln62.onlineshoppingapp.pojo.Category;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
 import com.example.cln62.onlineshoppingapp.ui.checkout.CheckOutActivity;
-import com.example.cln62.onlineshoppingapp.ui.product.ProductFragment;
+import com.example.cln62.onlineshoppingapp.ui.product.ProductActivity;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private ImageButton imageButtonCart;
     String userId, apiKey;
     private ImageLoader imageLoader;
-    CategoryFragment categoryFragment;
+    HomeFragment categoryFragment;
 
 
     @Override
@@ -85,7 +85,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         navigationView.setNavigationItemSelectedListener(this);
 
         //recycler view
-        categoryFragment = new CategoryFragment();
+        categoryFragment = new HomeFragment();
         Bundle bundle = new Bundle();
         bundle.putString("id", userId);
         bundle.putString("apikey", apiKey);
@@ -156,13 +156,29 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     }
 
     @Override
-    public void dataTransferMethod(String productName) {
-        Bundle bundle = new Bundle();
-        bundle.putString("pname", productName);
+    public void dataTransferMethod(Product product) {
+
+        Intent i = new Intent(this, ProductActivity.class);
+        i.putExtra("id", product.getId());
+        i.putExtra("pname", product.getPname());
+        i.putExtra("quantity", product.getQuantity());
+        i.putExtra("prize", product.getPrize());
+        i.putExtra("description", product.getDescription());
+        i.putExtra("image", product.getImage());
+        startActivity(i);
+
+
+/*        Bundle bundle = new Bundle();
+        bundle.putString("pname", product.getPname());
+        bundle.putString("quantity", product.getQuantity());
+        bundle.putString("prize", product.getPrize());
+        bundle.putString("discription", product.getDescription());
+        bundle.putString("image", product.getImage());
         ProductFragment productFragment = new ProductFragment();
         productFragment.setArguments(bundle);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_home, productFragment, null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_home, productFragment).addToBackStack("home_page").commit();*/
+
     }
 
 }

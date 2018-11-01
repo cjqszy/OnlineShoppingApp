@@ -7,32 +7,32 @@
     tools:layout_editor_absoluteY="25dp">
 
     <Button
-        android:id="@+id/button_addtocart"
+        android:id="@+id/button_addtocart2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="133dp"
         android:layout_marginEnd="7dp"
+        android:layout_marginTop="38dp"
         android:text="add to cart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/image_product" />
+        app:layout_constraintEnd_toEndOf="@+id/image_product2"
+        app:layout_constraintTop_toBottomOf="@+id/textView_productname2" />
 
     <ImageView
-        android:id="@+id/image_product"
+        android:id="@+id/image_product2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_productname"
+        android:layout_marginTop="156dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/amazon_icon_small" />
 
     <TextView
-        android:id="@+id/textView_productname"
+        android:id="@+id/textView_productname2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="31dp"
-        android:layout_marginStart="26dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="37dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/button_addtocart"
-        app:layout_constraintStart_toStartOf="@+id/button_addtocart" />
+        app:layout_constraintStart_toStartOf="@+id/button_addtocart2"
+        app:layout_constraintTop_toBottomOf="@+id/image_product2" />
 </android.support.constraint.ConstraintLayout>
