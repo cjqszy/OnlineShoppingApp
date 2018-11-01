@@ -7,7 +7,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,16 +15,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.cln62.onlineshoppingapp.R;
-import com.example.cln62.onlineshoppingapp.adapter.ProductListAdapter;
 import com.example.cln62.onlineshoppingapp.network.ImageLoader;
 import com.example.cln62.onlineshoppingapp.pojo.Category;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
 import com.example.cln62.onlineshoppingapp.ui.checkout.CheckOutActivity;
+import com.example.cln62.onlineshoppingapp.ui.product.ProductFragment;
 
 import java.util.List;
 
 
-                public class HomeActivity extends AppCompatActivity implements HomeContract.View,
+public class HomeActivity extends AppCompatActivity implements HomeContract.View,
         NavigationView.OnNavigationItemSelectedListener {
 
     HomePresenter homePresenter;
@@ -148,11 +147,22 @@ import java.util.List;
 
     @Override
     public void showProductList(List<Product> resList) {
-        ProductListAdapter mAdapter = new ProductListAdapter(this, resList);
-//        mAdapter.setClickListener();
+/*        ProductListAdapter mAdapter = new ProductListAdapter(this, resList);
+        mAdapter.setClickListener(categoryFragment);
 
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);*/
+        categoryFragment.showProductListConfirm(resList);
+    }
+
+    @Override
+    public void dataTransferMethod(String productName) {
+        Bundle bundle = new Bundle();
+        bundle.putString("pname", productName);
+        ProductFragment productFragment = new ProductFragment();
+        productFragment.setArguments(bundle);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_home, productFragment, null).commit();
     }
 
 }

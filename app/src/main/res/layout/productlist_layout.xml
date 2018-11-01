@@ -15,8 +15,7 @@
         android:id="@+id/imageview_productimage"
         android:layout_width="150dp"
         android:layout_height="90dp"
-        app:srcCompat="@drawable/amazon_icon"
-        android:contentDescription="This image is for the productlist " />
+        app:srcCompat="@drawable/amazon_icon" />
     <LinearLayout
         android:background="#eff2ef"
         android:orientation="vertical"
@@ -38,7 +37,7 @@
         <TextView
             android:id="@+id/textview_productprice"
             android:paddingLeft="10dp"
-            android:text="price : 1000$"
+            android:text="price : 0"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -59,7 +58,7 @@
 
     </LinearLayout>
     <View
-        android:background="#0f0f0f"
+        android:background="@color/amazonColor"
         android:layout_width="match_parent"
         android:layout_height="2dp"/>
 

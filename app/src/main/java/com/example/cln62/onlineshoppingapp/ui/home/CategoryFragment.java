@@ -12,13 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cln62.onlineshoppingapp.R;
+import com.example.cln62.onlineshoppingapp.adapter.ProductListAdapter;
 import com.example.cln62.onlineshoppingapp.adapter.RecyclerviewCategoryAdapter;
 import com.example.cln62.onlineshoppingapp.network.ImageLoader;
 import com.example.cln62.onlineshoppingapp.pojo.Category;
+import com.example.cln62.onlineshoppingapp.pojo.Product;
 
 import java.util.List;
 
-public class CategoryFragment extends Fragment implements RecyclerviewCategoryAdapter.OnItemClickListener{
+public class CategoryFragment extends Fragment implements RecyclerviewCategoryAdapter.OnItemClickListener,
+        ProductListAdapter.ClickListener{
 
     private ImageLoader imageLoader;
     String userId, apiKey;
@@ -26,6 +29,7 @@ public class CategoryFragment extends Fragment implements RecyclerviewCategoryAd
     RecyclerviewCategoryAdapter mAdapter;
     RecyclerView mRecyclerView;
     List<Category> subCategory;
+    List<Product> productList;
 
     @Nullable
     @Override
@@ -80,5 +84,22 @@ public class CategoryFragment extends Fragment implements RecyclerviewCategoryAd
 
         mRecyclerView.setAdapter(mAdapter);
         subCategory = list;
+    }
+
+    @Override
+    public void itemClicked(View view, int position) {
+        Product product = productList.get(position);
+        String productName = product.getPname();
+        HomeContract.View homeContract = (HomeContract.View) getActivity();
+        homeContract.dataTransferMethod(productName);
+    }
+
+    public void showProductListConfirm(List<Product> resList) {
+        ProductListAdapter mAdapter = new ProductListAdapter(getContext(), resList);
+        mAdapter.setClickListener(this);
+
+//        RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
+        mRecyclerView.setAdapter(mAdapter);
+        productList = resList;
     }
 }

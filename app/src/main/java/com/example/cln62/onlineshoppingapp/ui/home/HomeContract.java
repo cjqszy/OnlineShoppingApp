@@ -34,5 +34,7 @@ public interface HomeContract {
         void categoryClickedConfirmed(String cid, String scid);
 
         void showProductList(List<Product> resList);
+
+        public void dataTransferMethod(String id);
     };
 }
