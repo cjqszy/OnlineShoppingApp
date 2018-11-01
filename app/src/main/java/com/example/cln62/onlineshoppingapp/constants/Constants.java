@@ -10,4 +10,5 @@ public interface Constants {
    String TAG_JSON_OBJTAG = "json_obj_req";
    String USERID = "&user_id=";
    String APIKEY = "&api_key=";
+   String FREESHIPPING = "Free Shipping";
 }

@@ -3,7 +3,6 @@ package com.example.cln62.onlineshoppingapp.ui.home;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,16 +16,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.cln62.onlineshoppingapp.R;
-import com.example.cln62.onlineshoppingapp.adapter.RecyclerviewCategoryAdapter;
+import com.example.cln62.onlineshoppingapp.adapter.ProductListAdapter;
 import com.example.cln62.onlineshoppingapp.network.ImageLoader;
 import com.example.cln62.onlineshoppingapp.pojo.Category;
-import com.example.cln62.onlineshoppingapp.pojo.SubCategory;
+import com.example.cln62.onlineshoppingapp.pojo.Product;
 import com.example.cln62.onlineshoppingapp.ui.checkout.CheckOutActivity;
 
 import java.util.List;
 
 
-public class HomeActivity extends AppCompatActivity implements HomeContract.View,
+                public class HomeActivity extends AppCompatActivity implements HomeContract.View,
         NavigationView.OnNavigationItemSelectedListener {
 
     HomePresenter homePresenter;
@@ -104,22 +103,31 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     }
 
     @Override
-    public void categoryClickedConfirmed(String subId) {
-        imageLoader = new ImageLoader(this);
-        imageLoader.loadSubCategoryImage(userId, apiKey, subId);
+    public void showSubCategory(List<Category> list, String cid) {
+/*        RecyclerviewCategoryAdapter mAdapter = new RecyclerviewCategoryAdapter(list, this);
+        mAdapter.setOnItemClickListener(categoryFragment, cid);
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
+
+        mRecyclerView.setAdapter(mAdapter);*/
+//        mAdapter.notifyDataSetChanged();
+        categoryFragment.showSubCategoryConfirm(list, cid);
+    }
+
+    public void categoryListened(String cid) {
+        homePresenter.categoryClicked(cid);
+        Log.i("aaa4", cid);
+    }
+
+    public void categoryListened(String cid, String scid) {
+        homePresenter.categoryClicked(cid, scid);
+        Log.i("subcategorylistened", cid);
+        Log.i("subcategorylistened", scid);
     }
 
     @Override
-    public void showSubCategory(List<Category> list) {
-        RecyclerviewCategoryAdapter mAdapter = new RecyclerviewCategoryAdapter(list, this);
-        RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
-
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    public void categoryListened(String subId) {
-        homePresenter.categoryClicked(subId);
-        Log.i("aaa4", subId);
+    public void categoryClickedConfirmed(String cid) {
+        imageLoader = new ImageLoader(this);
+        imageLoader.loadSubCategoryImage(userId, apiKey, cid);
     }
 
     @Override
@@ -131,4 +139,20 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     public void comBackConfirm() {
         categoryFragment.resetCategory();
     }
+
+    @Override
+    public void categoryClickedConfirmed(String cid, String scid) {
+        imageLoader = new ImageLoader(this);
+        imageLoader.loadProductList(userId, apiKey, cid, scid);
+    }
+
+    @Override
+    public void showProductList(List<Product> resList) {
+        ProductListAdapter mAdapter = new ProductListAdapter(this, resList);
+//        mAdapter.setClickListener();
+
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
 }

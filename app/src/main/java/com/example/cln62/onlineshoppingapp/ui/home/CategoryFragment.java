@@ -25,6 +25,7 @@ public class CategoryFragment extends Fragment implements RecyclerviewCategoryAd
     List<Category> list;
     RecyclerviewCategoryAdapter mAdapter;
     RecyclerView mRecyclerView;
+    List<Category> subCategory;
 
     @Nullable
     @Override
@@ -54,13 +55,30 @@ public class CategoryFragment extends Fragment implements RecyclerviewCategoryAd
 
     @Override
     public void onItemClick(View view, int position) {
-        String subId = list.get(position).getCid();
-        Log.i("aaa3", subId);
-        ((HomeActivity) getActivity()).categoryListened(subId);
+        String cid = list.get(position).getCid();
+        Log.i("aaa3", cid);
+        ((HomeActivity) getActivity()).categoryListened(cid);
+    }
 
+    @Override
+    public void onItemClick(View view, int position, String cid) {
+        String scid = subCategory.get(position).getCid(); //actually should be scid, because using the same pojo(Category) for category
+        // and subcategory, so the first attribute still called cid, but for subcategory it actually is scid
+        Log.i("aaa3", cid);
+        Log.i("aaa3", scid);
+        ((HomeActivity) getActivity()).categoryListened(cid, scid);
     }
 
     public void resetCategory() {
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    public void showSubCategoryConfirm(List<Category> list, String cid) {
+        RecyclerviewCategoryAdapter mAdapter = new RecyclerviewCategoryAdapter(list, getContext());
+        mAdapter.setOnItemClickListener(this, cid);
+//        RecyclerView mRecyclerView = view.findViewById(R.id.recyclerview_home);
+
+        mRecyclerView.setAdapter(mAdapter);
+        subCategory = list;
     }
 }

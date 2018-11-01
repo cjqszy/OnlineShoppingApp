@@ -19,7 +19,8 @@ public class RecyclerviewCategoryAdapter extends RecyclerView.Adapter<Recyclervi
 
     List<Category> mList;
     Context context;
-    private OnItemClickListener mOnItemClickListener;
+    private OnItemClickListener mOnItemClickListener, mOnItemClickListener2;
+    String cid;
 
     public RecyclerviewCategoryAdapter(List<Category> mList, Context context) {
         this.mList = mList;
@@ -64,6 +65,9 @@ public class RecyclerviewCategoryAdapter extends RecyclerView.Adapter<Recyclervi
             if(mOnItemClickListener != null) {
                 mOnItemClickListener.onItemClick(v, getAdapterPosition());
             }
+            if(mOnItemClickListener2 != null) {
+                mOnItemClickListener2.onItemClick(v, getAdapterPosition(), cid);
+            }
         }
     }
 
@@ -78,7 +82,14 @@ public class RecyclerviewCategoryAdapter extends RecyclerView.Adapter<Recyclervi
         mOnItemClickListener = itemClickListener;
     }
 
+    public void setOnItemClickListener(OnItemClickListener itemClickListener, String cid){
+        mOnItemClickListener2 = itemClickListener;
+        this.cid = cid;
+    }
+
     public interface OnItemClickListener{
         void onItemClick(View view, int position);
+
+        void onItemClick(View view, int position, String cid);
     }
 }
