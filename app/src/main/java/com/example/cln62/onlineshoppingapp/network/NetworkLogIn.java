@@ -26,16 +26,18 @@ public class NetworkLogIn {
 
     private static final String TAG = "NetworkLogIn";
 
-    public void login(String mb, String pwd, final LoginActivity loginActivity) {
+    public void login(String mb, final String pwd, final LoginActivity loginActivity) {
 
 
         String tag_json_obj = "json_obj_req";
         final String mobile = mb;
-        final String password = pwd;
 //        String url = "http://rjtmobile.com/aamir/e-commerce/android-app/shop_login.php";
 
+        Log.i(TAG, mb);
+        Log.i(TAG, pwd);
+
         String url =  "http://rjtmobile.com/aamir/e-commerce/android-app/shop_login.php?mobile="
-                + mobile + "&password=" + password;
+                + mobile + "&password=" + pwd;
 
         JsonArrayRequest JsonReq = new JsonArrayRequest(Request.Method.GET,
                 url, null, new Response.Listener<JSONArray>() {
@@ -53,7 +55,7 @@ public class NetworkLogIn {
                     String mobile = jsonObject.getString("mobile");
                     String appapikey  = jsonObject.getString("appapikey ");
                     Log.i("aaa", id);
-                    LoginProfile loginProfile = new LoginProfile(id, firstname, lastname, email, mobile, appapikey);
+                    LoginProfile loginProfile = new LoginProfile(id, firstname, lastname, email, mobile, appapikey, pwd);
                     loginActivity.loginSuccess(loginProfile);
 
                 } catch (JSONException e) {
@@ -67,7 +69,7 @@ public class NetworkLogIn {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 Log.i(TAG, "error");
                 Log.i(TAG, mobile);
-                Log.i(TAG, password);
+                Log.i(TAG, pwd);
             }
         });
 

@@ -31,7 +31,8 @@
         <activity android:name=".ui.home.HomeActivity" />
         <activity android:name=".ui.checkout.CartActivity" />
         <activity android:name=".ui.checkout.CheckOutActivity" />
-        <activity android:name=".ui.product.ProductActivity"></activity>
+        <activity android:name=".ui.product.ProductActivity" />
+        <activity android:name=".ui.profile.ProfileActivity"></activity>
     </application>
 
 </manifest>

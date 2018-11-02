@@ -3,6 +3,7 @@ package com.example.cln62.onlineshoppingapp.ui.home;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cln62.onlineshoppingapp.R;
 import com.example.cln62.onlineshoppingapp.network.ImageLoader;
@@ -21,6 +23,7 @@ import com.example.cln62.onlineshoppingapp.pojo.Product;
 import com.example.cln62.onlineshoppingapp.ui.checkout.CartActivity;
 import com.example.cln62.onlineshoppingapp.ui.checkout.CheckOutActivity;
 import com.example.cln62.onlineshoppingapp.ui.product.ProductActivity;
+import com.example.cln62.onlineshoppingapp.ui.profile.ProfileActivity;
 
 import java.util.List;
 
@@ -60,7 +63,34 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        return false;
+        int id = menuItem.getItemId();
+
+        if (id == R.id.nav_home) {
+            Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
+
+        } else if (id == R.id.nav_profile) {
+            Intent homeIntent = new Intent(HomeActivity.this, ProfileActivity.class);
+            startActivity(homeIntent);
+        } else if (id == R.id.nav_orders) {
+/*            Intent categoryIntent = new Intent(HomeActivity.this, CategoryActivity.class);
+            startActivity(categoryIntent);*/
+        } else if (id == R.id.nav_wishlists) {
+
+        } else if (id == R.id.nav_topsellers) {
+/*            Intent wishListIntent = new Intent(HomeActivity.this, WishListActivity.class);
+            startActivity(wishListIntent);*/
+
+        } else if (id == R.id.nav_setting) {
+
+        } else if (id == R.id.nav_service) {
+
+        }  else if (id == R.id.nav_logout) {
+
+        }
+
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override

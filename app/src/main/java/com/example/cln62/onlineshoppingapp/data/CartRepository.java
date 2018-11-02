@@ -10,7 +10,7 @@ public class CartRepository implements CartInterface {
     CartInterface cartDao;
 
     public CartRepository(ProductActivity productActivity) {
-        cartDao = new CartDAO(productActivity);
+        cartDao = new CartDao(productActivity);
     }
 
 

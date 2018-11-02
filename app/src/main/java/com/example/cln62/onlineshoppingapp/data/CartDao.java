@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CartDAO implements CartInterface {
+public class CartDao implements CartInterface {
 
     SQLiteDatabase sqLiteDatabase;
     CartDbHelper cartDbHelper;
 
-    public CartDAO(Context context) {
+    public CartDao(Context context) {
         cartDbHelper = new CartDbHelper(context);
         openDb();
     }

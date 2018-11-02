@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +15,7 @@ import com.example.cln62.onlineshoppingapp.R;
 import com.example.cln62.onlineshoppingapp.adapter.CartAdapter;
 import com.example.cln62.onlineshoppingapp.adapter.ProductListAdapter;
 import com.example.cln62.onlineshoppingapp.constants.Constants;
-import com.example.cln62.onlineshoppingapp.data.CartDAO;
+import com.example.cln62.onlineshoppingapp.data.CartDao;
 import com.example.cln62.onlineshoppingapp.network.NetworkApplyCoupon;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
 
@@ -23,13 +24,14 @@ import java.util.List;
 public class CartActivity extends AppCompatActivity implements CheckOutInterface.View{
 
     CheckOutPresenter checkOutPresenter;
-    private CartDAO cartDAO;
+    private CartDao cartDAO;
     RecyclerView recyclerView;
     List<Product> cartList;
     ProductListAdapter cartListAdapter;
     Button buttonCheckout, buttonContinueShopping;
     TextView textViewTotal, textViewCoupon;
     boolean couponApplied;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,15 +85,17 @@ public class CartActivity extends AppCompatActivity implements CheckOutInterface
         int sum = 0;
         for (int i = 0; i < cartList.size(); i++) {
             Product product = cartList.get(i);
-            int price = Integer.parseInt(product.getPrize());
-            sum += price;
+            String price = product.getPrize();
+            String quantity = product.getQuantity();
+            int totalPrice = Integer.parseInt(price) * Integer.parseInt(quantity);
+            sum += totalPrice;
         }
         textViewTotal.setText("$" + String.valueOf(sum));
 
     }
 
     private void initDatabase() {
-        cartDAO = new CartDAO(this);
+        cartDAO = new CartDao(this);
         cartList = cartDAO.getCartList();
 
         Log.i("cd", String.valueOf(cartList.size()));

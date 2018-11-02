@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         String id = loginProfile.getId();
         String apikey = loginProfile.getAppapikey();
         mySharedPrefences.setUserInfo(this, id, loginProfile.getFname(), loginProfile.getLname(),
-                loginProfile.getEmail(), loginProfile.getMobile(), loginProfile.getAppapikey());
+                loginProfile.getEmail(), loginProfile.getMobile(), loginProfile.getAppapikey(), loginProfile.getPassword());
 
         i.putExtra("id", id);
         i.putExtra("apikey", apikey);
