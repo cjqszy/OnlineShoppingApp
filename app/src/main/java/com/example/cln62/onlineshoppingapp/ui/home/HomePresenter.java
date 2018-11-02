@@ -12,7 +12,7 @@ public class HomePresenter implements HomeContract.Presenter{
 
     @Override
     public void cartCllicked() {
-        view.proceedCheckOut();
+        view.proceedCart();
     }
 
     @Override

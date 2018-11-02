@@ -9,6 +9,9 @@ import android.util.Log;
 import com.example.cln62.onlineshoppingapp.pojo.DbContract.Entry;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class CartDAO implements CartInterface {
 
@@ -63,6 +66,26 @@ public class CartDAO implements CartInterface {
         Log.i("db2", product.getPname() + " " + quantity);
 
         result.close();
+    }
+
+    @Override
+    public List<Product> getCartList() {
+        List<Product> list = new ArrayList<>();
+        String sql = "select entryid, pname, quantity, price, description, image From "
+                + Entry.TABLE_NAME;
+//        Cursor result = sqLiteDatabase.rawQuery(sql +"", null);
+        Cursor result = sqLiteDatabase.rawQuery(sql, null);
+        for(result.moveToFirst(); !result.isAfterLast(); result.moveToNext()){
+            Product product = new Product(result.getString(0),
+                    result.getString(1),
+                    result.getString(2),
+                    result.getString(3), // the quantity get here is not the same quantity as that of the product, it is the number in db
+                    result.getString(4),
+                    result.getString(5));
+            list.add(product);
+        }
+        Log.i("cd", "s");
+        return list;
     }
 
 }

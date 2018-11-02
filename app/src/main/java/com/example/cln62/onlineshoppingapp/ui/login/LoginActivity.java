@@ -1,6 +1,7 @@
 package com.example.cln62.onlineshoppingapp.ui.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -18,6 +19,7 @@ import com.example.cln62.onlineshoppingapp.pojo.LoginProfile;
 import com.example.cln62.onlineshoppingapp.ui.home.HomeActivity;
 import com.example.cln62.onlineshoppingapp.R;
 import com.example.cln62.onlineshoppingapp.ui.signup.SignupActivity;
+import com.example.cln62.onlineshoppingapp.utils.MySharedPrefences;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
 
@@ -27,12 +29,14 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     CheckBox mCbDisplayPassword;
     Button buttonLogin;
     NetworkLogIn networkLogIn;
+    MySharedPrefences mySharedPrefences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         loginPresenter = new LoginPresenter(this);
+        mySharedPrefences = new MySharedPrefences();
 
         textViewSignup = findViewById(R.id.textViewSignup);
         etMobile = findViewById(R.id.editTextMb);
@@ -99,6 +103,9 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         Intent i = new Intent(LoginActivity.this, HomeActivity.class);
         String id = loginProfile.getId();
         String apikey = loginProfile.getAppapikey();
+        mySharedPrefences.setUserInfo(this, id, loginProfile.getFname(), loginProfile.getLname(),
+                loginProfile.getEmail(), loginProfile.getMobile(), loginProfile.getAppapikey());
+
         i.putExtra("id", id);
         i.putExtra("apikey", apikey);
         startActivity(i);

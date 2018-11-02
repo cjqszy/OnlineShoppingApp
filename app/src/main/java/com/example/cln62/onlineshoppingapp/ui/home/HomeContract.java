@@ -21,7 +21,7 @@ public interface HomeContract {
 
     interface View{
 
-        void proceedCheckOut();
+        void proceedCart();
 
         void initViewConfirm();
 

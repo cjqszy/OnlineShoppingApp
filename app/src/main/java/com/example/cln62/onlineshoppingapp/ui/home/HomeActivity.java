@@ -18,6 +18,7 @@ import com.example.cln62.onlineshoppingapp.R;
 import com.example.cln62.onlineshoppingapp.network.ImageLoader;
 import com.example.cln62.onlineshoppingapp.pojo.CatSubcategory;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
+import com.example.cln62.onlineshoppingapp.ui.checkout.CartActivity;
 import com.example.cln62.onlineshoppingapp.ui.checkout.CheckOutActivity;
 import com.example.cln62.onlineshoppingapp.ui.product.ProductActivity;
 
@@ -63,8 +64,8 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     }
 
     @Override
-    public void proceedCheckOut() {
-        Intent i = new Intent(this, CheckOutActivity.class);
+    public void proceedCart() {
+        Intent i = new Intent(this, CartActivity.class);
         startActivity(i);
     }
 
