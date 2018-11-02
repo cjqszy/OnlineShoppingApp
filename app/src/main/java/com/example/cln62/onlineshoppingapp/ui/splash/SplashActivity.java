@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
 
         imageView.startAnimation(animation);
 
-        Thread thread = new Thread() {
+/*        Thread thread = new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -39,9 +39,9 @@ public class SplashActivity extends AppCompatActivity {
 
         };
 
-        thread.start();
+        thread.start();*/
 
-/*        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 }

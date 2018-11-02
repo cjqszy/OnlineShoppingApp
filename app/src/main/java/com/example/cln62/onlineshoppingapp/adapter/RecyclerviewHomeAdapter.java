@@ -10,19 +10,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cln62.onlineshoppingapp.R;
-import com.example.cln62.onlineshoppingapp.pojo.Category;
+import com.example.cln62.onlineshoppingapp.pojo.CatSubcategory;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class RecyclerviewCategoryAdapter extends RecyclerView.Adapter<RecyclerviewCategoryAdapter.ViewHolder> {
+public class RecyclerviewHomeAdapter extends RecyclerView.Adapter<RecyclerviewHomeAdapter.ViewHolder> {
 
-    List<Category> mList;
+    List<CatSubcategory> mList;
     Context context;
     private OnItemClickListener mOnItemClickListener, mOnItemClickListener2;
     String cid;
 
-    public RecyclerviewCategoryAdapter(List<Category> mList, Context context) {
+    public RecyclerviewHomeAdapter(List<CatSubcategory> mList, Context context) {
         this.mList = mList;
         this.context = context;
     }
@@ -40,7 +40,7 @@ public class RecyclerviewCategoryAdapter extends RecyclerView.Adapter<Recyclervi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        Category category = mList.get(position);
+        CatSubcategory category = mList.get(position);
         viewHolder.textViewCategory.setText(category.getCname());
         Picasso.with(context)
                 .load(category.getCimagerl())

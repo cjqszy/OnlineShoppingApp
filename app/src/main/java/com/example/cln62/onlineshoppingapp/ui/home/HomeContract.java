@@ -1,6 +1,6 @@
 package com.example.cln62.onlineshoppingapp.ui.home;
 
-import com.example.cln62.onlineshoppingapp.pojo.Category;
+import com.example.cln62.onlineshoppingapp.pojo.CatSubcategory;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public interface HomeContract {
 
         void categoryClickedConfirmed(String subId);
 
-        void showSubCategory(List<Category> list, String cid);
+        void showSubCategory(List<CatSubcategory> list, String cid);
 
         void comBackConfirm();
 

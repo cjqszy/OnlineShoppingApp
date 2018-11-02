@@ -7,12 +7,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.cln62.onlineshoppingapp.constants.Constants;
-import com.example.cln62.onlineshoppingapp.pojo.Category;
+import com.example.cln62.onlineshoppingapp.pojo.CatSubcategory;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
-import com.example.cln62.onlineshoppingapp.pojo.SubCategory;
 import com.example.cln62.onlineshoppingapp.ui.home.HomeActivity;
 import com.example.cln62.onlineshoppingapp.utils.AppController;
 
@@ -21,22 +19,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ImageLoader {
 
     private static final String TAG = "ImageLoader";
     private static final String tag_json_obj = Constants.TAG_JSON_OBJTAG;
-    List<Category> resList2;
+    List<CatSubcategory> resList2;
     Context context;
 
     public ImageLoader(Context context) {
         this.context = context;
     }
 
-    public List<Category> loadCategoryImage(final String userId, final String apiKey) {
+    public List<CatSubcategory> loadCategoryImage(final String userId, final String apiKey) {
 
         String url = Constants.CATEGORYURL
                 + apiKey + Constants.USERID + userId;
@@ -45,7 +41,7 @@ public class ImageLoader {
         Log.i("aaa4", apiKey);
         Log.i("aaa4", url);
 
-        final List<Category> resList = new ArrayList<>();
+        final List<CatSubcategory> resList = new ArrayList<>();
         JsonObjectRequest JsonReq = new JsonObjectRequest(Request.Method.GET,
                 url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -60,7 +56,7 @@ public class ImageLoader {
                         String caterogyName = jsonObject.getString("cname");
                         String caterogyDescription = jsonObject.getString("cdiscription");
                         String caterogyImageUrl = jsonObject.getString("cimagerl");
-                        resList.add(new Category(categoryId, caterogyName, caterogyDescription, caterogyImageUrl));
+                        resList.add(new CatSubcategory(categoryId, caterogyName, caterogyDescription, caterogyImageUrl));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -79,8 +75,8 @@ public class ImageLoader {
         return resList;
     }
 
-    public List<Category> loadSubCategoryImage(final String userId, final String apiKey, final String cid) {
-        List<Category> resList;
+    public List<CatSubcategory> loadSubCategoryImage(final String userId, final String apiKey, final String cid) {
+        List<CatSubcategory> resList;
 
         String url = Constants.SUBCATEGORYURL + cid + Constants.APIKEY
                 + apiKey + Constants.USERID + userId;
@@ -100,7 +96,7 @@ public class ImageLoader {
                         String subCaterogyDescription = jsonObject.getString("scdiscription");
                         String subCaterogyImageUrl = jsonObject.getString("scimageurl");
                         resList2 = new ArrayList<>();
-                        resList2.add(new Category(subCategoryId, subCaterogyName, subCaterogyDescription, subCaterogyImageUrl));
+                        resList2.add(new CatSubcategory(subCategoryId, subCaterogyName, subCaterogyDescription, subCaterogyImageUrl));
                         Log.i(TAG, "1 " + String.valueOf(resList2.size()));
                         ((HomeActivity)context).showSubCategory(resList2, cid);
                     }

@@ -16,4 +16,5 @@ public class CartRepository implements CartInterface {
     public void addProduct(Product product) {
         cartDao.addProduct(product);
     }
+
 }

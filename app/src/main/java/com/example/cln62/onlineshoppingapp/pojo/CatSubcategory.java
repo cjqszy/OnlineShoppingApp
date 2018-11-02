@@ -1,12 +1,12 @@
 package com.example.cln62.onlineshoppingapp.pojo;
 
-public class Category {
+public class CatSubcategory {
     String cid;
     String cname;
     String cdiscription;
     String cimagerl;
 
-    public Category(String cid, String cname, String cdiscription, String cimagerl) {
+    public CatSubcategory(String cid, String cname, String cdiscription, String cimagerl) {
         this.cid = cid;
         this.cname = cname;
         this.cdiscription = cdiscription;

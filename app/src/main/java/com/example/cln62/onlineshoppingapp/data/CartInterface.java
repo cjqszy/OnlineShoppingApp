@@ -8,4 +8,6 @@ public interface CartInterface {
 
     void addProduct(Product product);
 
+//    String getProductQuantity();
+
 }

@@ -13,22 +13,22 @@ import android.view.ViewGroup;
 
 import com.example.cln62.onlineshoppingapp.R;
 import com.example.cln62.onlineshoppingapp.adapter.ProductListAdapter;
-import com.example.cln62.onlineshoppingapp.adapter.RecyclerviewCategoryAdapter;
+import com.example.cln62.onlineshoppingapp.adapter.RecyclerviewHomeAdapter;
 import com.example.cln62.onlineshoppingapp.network.ImageLoader;
-import com.example.cln62.onlineshoppingapp.pojo.Category;
+import com.example.cln62.onlineshoppingapp.pojo.CatSubcategory;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment implements RecyclerviewCategoryAdapter.OnItemClickListener,
+public class HomeFragment extends Fragment implements RecyclerviewHomeAdapter.OnItemClickListener,
         ProductListAdapter.ClickListener{
 
     private ImageLoader imageLoader;
     String userId, apiKey;
-    List<Category> list;
-    RecyclerviewCategoryAdapter mAdapter;
+    List<CatSubcategory> list;
+    RecyclerviewHomeAdapter mAdapter;
     RecyclerView mRecyclerView;
-    List<Category> subCategory;
+    List<CatSubcategory> subCategory;
     List<Product> productList;
 
     @Nullable
@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment implements RecyclerviewCategoryAdapte
         imageLoader = new ImageLoader(getContext());
 
         list = imageLoader.loadCategoryImage(userId, apiKey);
-        mAdapter = new RecyclerviewCategoryAdapter(list, getContext());
+        mAdapter = new RecyclerviewHomeAdapter(list, getContext());
         mAdapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment implements RecyclerviewCategoryAdapte
 
     @Override
     public void onItemClick(View view, int position, String cid) {
-        String scid = subCategory.get(position).getCid(); //actually should be scid, because using the same pojo(Category) for category
+        String scid = subCategory.get(position).getCid(); //actually should be scid, because using the same pojo(CatSubcategory) for category
         // and subcategory, so the first attribute still called cid, but for subcategory it actually is scid
         Log.i("aaa3", cid);
         Log.i("aaa3", scid);
@@ -77,8 +77,8 @@ public class HomeFragment extends Fragment implements RecyclerviewCategoryAdapte
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    public void showSubCategoryConfirm(List<Category> list, String cid) {
-        RecyclerviewCategoryAdapter mAdapter = new RecyclerviewCategoryAdapter(list, getContext());
+    public void showSubCategoryConfirm(List<CatSubcategory> list, String cid) {
+        RecyclerviewHomeAdapter mAdapter = new RecyclerviewHomeAdapter(list, getContext());
         mAdapter.setOnItemClickListener(this, cid);
 //        RecyclerView mRecyclerView = view.findViewById(R.id.recyclerview_home);
 

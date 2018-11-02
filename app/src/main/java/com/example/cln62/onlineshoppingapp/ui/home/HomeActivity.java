@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.cln62.onlineshoppingapp.R;
 import com.example.cln62.onlineshoppingapp.network.ImageLoader;
-import com.example.cln62.onlineshoppingapp.pojo.Category;
+import com.example.cln62.onlineshoppingapp.pojo.CatSubcategory;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
 import com.example.cln62.onlineshoppingapp.ui.checkout.CheckOutActivity;
 import com.example.cln62.onlineshoppingapp.ui.product.ProductActivity;
@@ -92,18 +92,12 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         categoryFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_home, categoryFragment, null).commit();
 
-/*        RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        imageLoader = new ImageLoader();
-        List<Category> list = imageLoader.loadCategoryImage();
-        RecyclerviewCategoryAdapter mAdapter = new RecyclerviewCategoryAdapter(list, this);
-        mRecyclerView.setAdapter(mAdapter);*/
     }
 
     @Override
-    public void showSubCategory(List<Category> list, String cid) {
-/*        RecyclerviewCategoryAdapter mAdapter = new RecyclerviewCategoryAdapter(list, this);
+    public void showSubCategory(List<CatSubcategory> list, String cid) {
+/*        RecyclerviewHomeAdapter mAdapter = new RecyclerviewHomeAdapter(list, this);
         mAdapter.setOnItemClickListener(categoryFragment, cid);
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
 
