@@ -36,4 +36,7 @@ dependencies {
 //    Picasso
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+
+//    Paypal
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
 }

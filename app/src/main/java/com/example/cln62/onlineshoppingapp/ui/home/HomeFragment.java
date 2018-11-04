@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,11 +18,15 @@ import com.example.cln62.onlineshoppingapp.adapter.RecyclerviewHomeAdapter;
 import com.example.cln62.onlineshoppingapp.network.ImageLoader;
 import com.example.cln62.onlineshoppingapp.pojo.CatSubcategory;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
+import com.example.cln62.onlineshoppingapp.ui.product.ProductFragment;
+import com.example.cln62.onlineshoppingapp.utils.MySharedPrefences;
 
 import java.util.List;
 
 public class HomeFragment extends Fragment implements RecyclerviewHomeAdapter.OnItemClickListener,
         ProductListAdapter.ClickListener{
+
+    public View myRoot;
 
     private ImageLoader imageLoader;
     String userId, apiKey;
@@ -30,17 +35,25 @@ public class HomeFragment extends Fragment implements RecyclerviewHomeAdapter.On
     RecyclerView mRecyclerView;
     List<CatSubcategory> subCategory;
     List<Product> productList;
+    MySharedPrefences mySharedPrefences;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_category, container, false);
 
-        Bundle bundle = getArguments();
-        userId = bundle.getString("id");
-        apiKey = bundle.getString("apikey");
-        initRecyclerView(view);
-        return view;
+        if (myRoot == null) {
+            myRoot = inflater.inflate(R.layout.fragment_category, container, false);
+
+            Bundle bundle = getArguments();
+        mySharedPrefences = new MySharedPrefences();
+/*            userId = bundle.getString("id");
+            apiKey = bundle.getString("apikey");*/
+        userId = mySharedPrefences.getId(getActivity());
+
+        apiKey = mySharedPrefences.getApiKey(getActivity());
+            initRecyclerView(myRoot);
+        }
+        return myRoot;
     }
 
     private void initRecyclerView(View view) {
@@ -89,8 +102,19 @@ public class HomeFragment extends Fragment implements RecyclerviewHomeAdapter.On
     @Override
     public void itemClicked(View view, int position) {
         Product product = productList.get(position);
-        HomeContract.View homeContract = (HomeContract.View) getActivity();
-        homeContract.dataTransferMethod(product);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("id", product.getId());
+        bundle.putString("pname", product.getPname());
+        bundle.putString("quantity", product.getQuantity());
+        bundle.putString("prize", product.getPrize());
+        bundle.putString("description", product.getDescription());
+        bundle.putString("image", product.getImage());
+
+        ProductFragment productFragment = new ProductFragment();
+        productFragment.setArguments(bundle);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(
+                R.id.content_home, productFragment, "ProductFrag").addToBackStack(null).commit();
     }
 
     public void showProductListConfirm(List<Product> resList) {

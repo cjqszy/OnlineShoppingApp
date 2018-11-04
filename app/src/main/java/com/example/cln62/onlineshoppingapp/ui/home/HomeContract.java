@@ -17,6 +17,8 @@ public interface HomeContract {
         void comeBack();
 
         void categoryClicked(String cid, String scid);
+
+        void addToCart(Product product);
     }
 
     interface View{
@@ -35,6 +37,10 @@ public interface HomeContract {
 
         void showProductList(List<Product> resList);
 
-        public void dataTransferMethod(Product product);
+        void dataTransferMethod(Product product);
     };
+
+    interface FragmentView{
+        void Frag2Frag();
+    }
 }

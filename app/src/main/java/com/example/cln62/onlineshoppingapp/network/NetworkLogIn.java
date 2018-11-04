@@ -67,9 +67,7 @@ public class NetworkLogIn {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Log.i(TAG, "error");
-                Log.i(TAG, mobile);
-                Log.i(TAG, pwd);
+                loginActivity.loginFailureMessage();
             }
         });
 

@@ -44,31 +44,31 @@ public class MySharedPrefences {
     }
 
     public static String getId(Context context){
-        return getSharePreference( context ).getString( "id", null );
+        return getSharePreference( context ).getString( "id", "" );
     }
 
     public static String getApiKey(Context context){
-        return getSharePreference( context ).getString( "apikey", null );
+        return getSharePreference( context ).getString( "apikey", "" );
     }
 
     public static String getFName(Context context){
-        return getSharePreference( context ).getString( "firstname", null );
+        return getSharePreference( context ).getString( "firstname", "" );
     }
 
     public static String getLName(Context context){
-        return getSharePreference( context ).getString( "lastname", null );
+        return getSharePreference( context ).getString( "lastname", "" );
     }
 
     public static String getEmail(Context context){
-        return getSharePreference( context ).getString( "email", null );
+        return getSharePreference( context ).getString( "email", "" );
     }
 
     public static String getMobile(Context context){
-        return getSharePreference( context ).getString( "mobile", null );
+        return getSharePreference( context ).getString( "mobile", "" );
     }
 
     public static String getPassword(Context context){
-        return getSharePreference( context ).getString( "password", null );
+        return getSharePreference( context ).getString( "password", "" );
     }
 
 }

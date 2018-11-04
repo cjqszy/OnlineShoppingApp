@@ -20,16 +20,18 @@ import com.example.cln62.onlineshoppingapp.ui.home.HomeActivity;
 import com.example.cln62.onlineshoppingapp.R;
 import com.example.cln62.onlineshoppingapp.ui.signup.SignupActivity;
 import com.example.cln62.onlineshoppingapp.utils.MySharedPrefences;
+import com.example.cln62.onlineshoppingapp.utils.RememberPrefrence;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
 
     LoginPresenter loginPresenter;
     TextView textViewSignup;
     EditText etMobile, etPassword;
-    CheckBox mCbDisplayPassword;
+    CheckBox mCbDisplayPassword, rememberMe;
     Button buttonLogin;
     NetworkLogIn networkLogIn;
     MySharedPrefences mySharedPrefences;
+    RememberPrefrence rememberPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +39,32 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         setContentView(R.layout.activity_login);
         loginPresenter = new LoginPresenter(this);
         mySharedPrefences = new MySharedPrefences();
+        rememberPreference = new RememberPrefrence();
 
         textViewSignup = findViewById(R.id.textViewSignup);
         etMobile = findViewById(R.id.editTextMb);
         etPassword = findViewById(R.id.etPassword);
         mCbDisplayPassword = findViewById(R.id.cbDisplayPassword);
+        rememberMe = findViewById(R.id.checkBoxRemember);
+
+        if (rememberPreference.getRememberOrNot(this)) {
+            etMobile.setText(mySharedPrefences.getMobile(this));
+            etPassword.setText(mySharedPrefences.getPassword(this));
+            rememberMe.setChecked(true);
+        }
+
+        rememberMe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    rememberPreference.setRememberOrNot(LoginActivity.this, true);
+                }
+                else {
+                    rememberPreference.setRememberOrNot(LoginActivity.this, false);
+                }
+            }
+        });
+
 
         loginPresenter.initListener();
 
@@ -109,5 +132,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         i.putExtra("id", id);
         i.putExtra("apikey", apikey);
         startActivity(i);
+    }
+
+    @Override
+    public void loginFailureMessage() {
+        Toast.makeText(this, "Username or password is wrong!", Toast.LENGTH_SHORT).show();
     }
 }

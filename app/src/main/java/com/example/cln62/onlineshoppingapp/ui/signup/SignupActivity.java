@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cln62.onlineshoppingapp.R;
 import com.example.cln62.onlineshoppingapp.network.NetworkSignUp;
@@ -35,6 +36,14 @@ public class SignupActivity extends AppCompatActivity implements SignupContract.
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (editTextMobile.getText().toString().length() < 10) {
+                    Toast.makeText(SignupActivity.this, "The length of mobile number should be greater than 10",
+                            Toast.LENGTH_SHORT).show();
+                }
+                if (editTextPwd.getText().toString().length() < 10) {
+                    Toast.makeText(SignupActivity.this, "The length of password should be greater than 10",
+                            Toast.LENGTH_SHORT).show();
+                }
                 signupPresenter.signup();
             }
         });

@@ -4,7 +4,7 @@ import com.example.cln62.onlineshoppingapp.data.CartInterface;
 import com.example.cln62.onlineshoppingapp.data.CartRepository;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
 
-public class ProductPresenter implements ProductContract.Presenter {
+/*public class ProductPresenter implements ProductContract.Presenter {
 
     ProductContract.View view;
     CartInterface cartRepository;
@@ -19,4 +19,4 @@ public class ProductPresenter implements ProductContract.Presenter {
     public void addToCart(Product product) {
         cartRepository.addProduct(product);
     }
-}
+}*/

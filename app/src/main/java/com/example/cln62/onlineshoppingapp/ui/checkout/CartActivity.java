@@ -1,5 +1,6 @@
 package com.example.cln62.onlineshoppingapp.ui.checkout;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +33,7 @@ public class CartActivity extends AppCompatActivity implements CheckOutInterface
     TextView textViewTotal, textViewCoupon;
     boolean couponApplied;
     private ArrayAdapter<String> adapter;
+    double sum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,9 @@ public class CartActivity extends AppCompatActivity implements CheckOutInterface
         buttonCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(CartActivity.this, CheckOutActivity.class);
+                i.putExtra("payment", sum);
+                startActivity(i);
             }
         });
 
@@ -82,7 +86,7 @@ public class CartActivity extends AppCompatActivity implements CheckOutInterface
 
         recyclerView.setAdapter(cartAdapter);
 
-        int sum = 0;
+        sum = 0;
         for (int i = 0; i < cartList.size(); i++) {
             Product product = cartList.get(i);
             String price = product.getPrize();
@@ -116,6 +120,7 @@ public class CartActivity extends AppCompatActivity implements CheckOutInterface
         double disc = Double.parseDouble(discount);
         double totalOld = Double.parseDouble((textViewTotal.getText().toString().substring(1)));
         String total = String.valueOf((totalOld * (100 - disc) * 0.1));
+        sum = Double.parseDouble(total);
         textViewTotal.setText(total);
         Log.i("adsad", String.valueOf(disc));
         Toast.makeText(this, "You get a discount of " + disc + "% with this coupon", Toast.LENGTH_SHORT).show();

@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 import static com.example.cln62.onlineshoppingapp.pojo.Product.PRODUCT_IMAGE_KEY;
 import static com.example.cln62.onlineshoppingapp.pojo.Product.PRODUCT_NAME_KEY;
 
-public class ProductActivity extends AppCompatActivity implements ProductContract.View {
+/*public class ProductActivity extends AppCompatActivity implements ProductContract.View {
 
     TextView textViewPName;
     Button button_addtocart;
@@ -59,4 +59,4 @@ public class ProductActivity extends AppCompatActivity implements ProductContrac
 
 
     }
-}
+}*/

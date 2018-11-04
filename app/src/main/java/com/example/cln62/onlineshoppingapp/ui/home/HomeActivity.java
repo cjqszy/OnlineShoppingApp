@@ -1,5 +1,6 @@
 package com.example.cln62.onlineshoppingapp.ui.home;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -22,7 +23,8 @@ import com.example.cln62.onlineshoppingapp.pojo.CatSubcategory;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
 import com.example.cln62.onlineshoppingapp.ui.checkout.CartActivity;
 import com.example.cln62.onlineshoppingapp.ui.checkout.CheckOutActivity;
-import com.example.cln62.onlineshoppingapp.ui.product.ProductActivity;
+import com.example.cln62.onlineshoppingapp.ui.login.LoginActivity;
+import com.example.cln62.onlineshoppingapp.ui.product.ProductFragment;
 import com.example.cln62.onlineshoppingapp.ui.profile.ProfileActivity;
 
 import java.util.List;
@@ -38,7 +40,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private ImageButton imageButtonCart;
     String userId, apiKey;
     private ImageLoader imageLoader;
-    HomeFragment categoryFragment;
+    HomeFragment homeFragment;
 
 
     @Override
@@ -67,8 +69,14 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
         if (id == R.id.nav_home) {
             Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
-
-        } else if (id == R.id.nav_profile) {
+            homeFragment = new HomeFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("id", userId);
+            bundle.putString("apikey", apiKey);
+            homeFragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_home, homeFragment, null).addToBackStack(null).commit();
+        }
+        else if (id == R.id.nav_profile) {
             Intent homeIntent = new Intent(HomeActivity.this, ProfileActivity.class);
             startActivity(homeIntent);
         } else if (id == R.id.nav_orders) {
@@ -85,7 +93,8 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         } else if (id == R.id.nav_service) {
 
         }  else if (id == R.id.nav_logout) {
-
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
         }
 
 //        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -116,13 +125,12 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         navigationView.setNavigationItemSelectedListener(this);
 
         //recycler view
-        categoryFragment = new HomeFragment();
+        homeFragment = new HomeFragment();
         Bundle bundle = new Bundle();
         bundle.putString("id", userId);
         bundle.putString("apikey", apiKey);
-        categoryFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_home, categoryFragment, null).commit();
-
+        homeFragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_home, homeFragment, "HomeFrag").commit();
 
     }
 
@@ -134,7 +142,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
         mRecyclerView.setAdapter(mAdapter);*/
 //        mAdapter.notifyDataSetChanged();
-        categoryFragment.showSubCategoryConfirm(list, cid);
+        homeFragment.showSubCategoryConfirm(list, cid);
     }
 
     public void categoryListened(String cid) {
@@ -156,13 +164,33 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     @Override
     public void onBackPressed() {
-        homePresenter.comeBack();
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0 ){
+            getSupportFragmentManager().popBackStack();
+        }
+        else {
+            homePresenter.comeBack();
+        }
+
+//        homePresenter.comeBack();
+/*        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_home);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }*/
     }
 
     @Override
     public void comBackConfirm() {
-        categoryFragment.resetCategory();
+        homeFragment.resetCategory();
+/*        FragmentManager fm = getFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+        } else {
+            super.onBackPressed();
+        }*/
     }
+
 
     @Override
     public void categoryClickedConfirmed(String cid, String scid) {
@@ -177,20 +205,33 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
         mRecyclerView.setAdapter(mAdapter);*/
-        categoryFragment.showProductListConfirm(resList);
+        homeFragment.showProductListConfirm(resList);
     }
 
     @Override
     public void dataTransferMethod(Product product) {
 
-        Intent i = new Intent(this, ProductActivity.class);
+/*        Bundle bundle = new Bundle();
+        bundle.putString("id", product.getId());
+        bundle.putString("pname", product.getPname());
+        bundle.putString("quantity", product.getQuantity());
+        bundle.putString("prize", product.getPrize());
+        bundle.putString("description", product.getDescription());
+        bundle.putString("image", product.getImage());
+
+        ProductFragment productFragment = new ProductFragment();
+        productFragment.setArguments(bundle);*/
+
+//        getSupportFragmentManager().beginTransaction().replace(R.id.content_home, productFragment, null).addToBackStack(null).commit();
+
+/*        Intent i = new Intent(this, ProductActivity.class);
         i.putExtra("id", product.getId());
         i.putExtra("pname", product.getPname());
         i.putExtra("quantity", product.getQuantity());
         i.putExtra("prize", product.getPrize());
         i.putExtra("description", product.getDescription());
         i.putExtra("image", product.getImage());
-        startActivity(i);
+        startActivity(i);*/
 
 
 /*        Bundle bundle = new Bundle();
