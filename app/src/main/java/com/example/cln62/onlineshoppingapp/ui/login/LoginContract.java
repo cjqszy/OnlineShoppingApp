@@ -20,5 +20,7 @@ public interface LoginContract {
         void loginConfirm();
 
         void loginSuccess(LoginProfile loginProfile);
+
+        void loginFailureMessage(String message);
     }
 }

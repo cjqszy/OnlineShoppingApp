@@ -12,18 +12,15 @@
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_profile"
             android:title="Profile" />
-        <item
-            android:id="@+id/nav_deals"
-            android:icon="@drawable/ic_menu_deal"
-            android:title="Today's Deals" />
+
         <item
             android:id="@+id/nav_orders"
             android:icon="@drawable/ic_menu_cart"
             android:title="Your Orders" />
-        <item
-            android:id="@+id/nav_lists"
+<!--        <item
+            android:id="@+id/nav_wishlists"
             android:icon="@drawable/ic_menu_list"
-            android:title="Your Lists" />
+            android:title="Your Lists" />-->
         <item
             android:id="@+id/nav_topsellers"
             android:icon="@drawable/ic_menu_topsellers"

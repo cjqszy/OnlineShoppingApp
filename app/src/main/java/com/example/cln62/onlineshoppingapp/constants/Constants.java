@@ -11,4 +11,6 @@ public interface Constants {
    String USERID = "&user_id=";
    String APIKEY = "&api_key=";
    String FREESHIPPING = "Free Shipping";
+
+   double COUPON_NUMBER = 2147483648L;
 }

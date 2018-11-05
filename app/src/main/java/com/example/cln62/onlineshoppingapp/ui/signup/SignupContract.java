@@ -12,6 +12,8 @@ public interface SignupContract {
         void finishActivityConfirm();
 
         void signupConfirm();
+
+        void registrtionSuccess();
     }
 
 }

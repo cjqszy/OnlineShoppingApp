@@ -11,6 +11,19 @@
     <string name="action_settings">Settings</string>
     <string name="emptycart_notice">Your shopping cart is empty</string>
     <string name="continue_shopping">Continue shopping</string>
-<!--    <string name="click">Click</string>
+    <string name="free_shipping">Free 2 days shipping, order NOW,
+        delivered guaranteed by</string>
+
+    <string name="facebook_app_id">743449009334532</string>
+    <string name="fb_login_protocol_scheme">fb743449009334532</string>
+
+    <!--    <string name="click">Click</string>
     <string name="add_item">to continue shopping</string>-->
+
+    <style name="myRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/em_ratingbar_drawable</item>
+        <item name="android:minHeight">50dp</item>
+        <item name="android:maxHeight">50dp</item>
+    </style>
+
 </resources>

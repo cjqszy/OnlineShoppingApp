@@ -1,6 +1,6 @@
 package com.example.cln62.onlineshoppingapp.ui.home;
 
-import com.example.cln62.onlineshoppingapp.pojo.Category;
+import com.example.cln62.onlineshoppingapp.pojo.CatSubcategory;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
 
 import java.util.List;
@@ -17,17 +17,25 @@ public interface HomeContract {
         void comeBack();
 
         void categoryClicked(String cid, String scid);
+
+        void addToCart(Product product);
+
+        void add(int i, int pid);
+
+        void delete(int i, int pid);
+
+        void remove(int pid);
     }
 
     interface View{
 
-        void proceedCheckOut();
+        void proceedCart();
 
         void initViewConfirm();
 
         void categoryClickedConfirmed(String subId);
 
-        void showSubCategory(List<Category> list, String cid);
+        void showSubCategory(List<CatSubcategory> list, String cid);
 
         void comBackConfirm();
 
@@ -35,6 +43,10 @@ public interface HomeContract {
 
         void showProductList(List<Product> resList);
 
-        public void dataTransferMethod(String id);
+        void dataTransferMethod(Product product);
     };
+
+    interface FragmentView{
+        void Frag2Frag();
+    }
 }

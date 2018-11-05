@@ -1,6 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/fragment_checkout">
+
+    <TextView
+        android:id="@+id/textview_ordersummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>
+
+<!--    <TextView
+        android:id="@+id/textview_orderid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>
+
+    <TextView
+        android:id="@+id/textview_orderstatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>
+
+    <TextView
+        android:id="@+id/textview_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>
+
+    <TextView
+        android:id="@+id/textview_billingadd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>
+
+    <TextView
+        android:id="@+id/textview_deliveryadd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>
+
+    <TextView
+        android:id="@+id/textview_mobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>
+
+    <TextView
+        android:id="@+id/textview_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>
+
+    <TextView
+        android:id="@+id/textview_itemid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>
+
+    <TextView
+        android:id="@+id/textview_itemname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>
+
+    <TextView
+        android:id="@+id/textview_itemquantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>
+
+    <TextView
+        android:id="@+id/textview_totalprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>
+
+    <TextView
+        android:id="@+id/textview_paidprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>
+
+    <TextView
+        android:id="@+id/textview_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textview_orderid"/>-->
+
+</LinearLayout>

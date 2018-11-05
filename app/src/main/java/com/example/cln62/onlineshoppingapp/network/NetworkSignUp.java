@@ -8,6 +8,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.example.cln62.onlineshoppingapp.pojo.SignupProfile;
+import com.example.cln62.onlineshoppingapp.ui.signup.SignupActivity;
 import com.example.cln62.onlineshoppingapp.utils.AppController;
 
 import java.util.HashMap;
@@ -17,7 +18,9 @@ public class NetworkSignUp {
 
     private static final String TAG = "NetworkSignUp";
 
-    public void signup(SignupProfile sp) {
+    public void signup(final SignupActivity signupActivity, SignupProfile sp) {
+
+
 
         String tag_json_obj = "json_obj_req";
         final SignupProfile profile = sp;
@@ -36,6 +39,7 @@ public class NetworkSignUp {
 
                         if (response.equals("successfully registered")) {
                             Log.i(TAG, "correct response!");
+                            signupActivity.registrtionSuccess();
                         }
                     }
                 }, new Response.ErrorListener() {

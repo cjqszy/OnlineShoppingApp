@@ -8,14 +8,16 @@ public class LoginProfile {
     String email;
     String mobile;
     String appapikey;
+    String password;
 
-    public LoginProfile(String id, String fname, String lname, String email, String mobile, String appapikey) {
+    public LoginProfile(String id, String fname, String lname, String email, String mobile, String appapikey, String password) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.email = email;
         this.mobile = mobile;
         this.appapikey = appapikey;
+        this.password = password;
     }
 
     public String getId() {
@@ -64,5 +66,13 @@ public class LoginProfile {
 
     public void setAppapikey(String appapikey) {
         this.appapikey = appapikey;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
