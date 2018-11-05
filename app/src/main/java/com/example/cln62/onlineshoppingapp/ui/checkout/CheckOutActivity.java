@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cln62.onlineshoppingapp.R;
+import com.example.cln62.onlineshoppingapp.ui.home.HomeActivity;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -36,6 +37,8 @@ public class CheckOutActivity extends AppCompatActivity {
     private static final String TAG = "CheckOutActivity";
 
     double payment;
+    String bAddress;
+    String dAddress;
 
   /*  TextView textViewOrderId, textViewOrderStatus, textViewUserName, textViewBillingAddress, textViewDelieveryAddress;
     TextView textViewMobile, textViewOrderEmail, textViewItemId, textViewItemName, textViewItemQuantity;
@@ -60,10 +63,15 @@ public class CheckOutActivity extends AppCompatActivity {
         editTextDAddress = findViewById(R.id.edittext_deliveryadd);
 //        textViewOrderSummary = findViewById(R.id.textview_ordersummary);
 
+
+
         payment = getIntent().getDoubleExtra("payment", 0);
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         startService(intent);
+
+        bAddress = editTextBAddress.getText().toString();
+        dAddress = editTextDAddress.getText().toString();
 
 /*        if (testFlag == 0) {
             getSupportFragmentManager().beginTransaction().add(R.id.checkoutact_layout, new EmptyCartFragment(), null ).commit();
@@ -73,6 +81,12 @@ public class CheckOutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+/*                if (bAddress == null || bAddress.length() == 0
+                        || dAddress == null || dAddress.length() == 0) {
+                    Toast.makeText(CheckOutActivity.this, "input correct address before paying",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }*/
                 PayPalPayment thingToBuy = getThingToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
                 Intent intent = new Intent(CheckOutActivity.this, PaymentActivity.class);
 
@@ -124,8 +138,6 @@ public class CheckOutActivity extends AppCompatActivity {
 
     private void orderSummary() {
 
-        String bAddress = editTextBAddress.getText().toString();
-        String dAddress = editTextDAddress.getText().toString();
         Bundle bundle = new Bundle();
         bundle.putString("bAddress", bAddress);
         bundle.putString("dAddress", dAddress);
@@ -152,7 +164,8 @@ public class CheckOutActivity extends AppCompatActivity {
         buttonOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CheckOutActivity.this, "222", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(CheckOutActivity.this, HomeActivity.class);
+                startActivity(i);
             }
         });
     }

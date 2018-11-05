@@ -21,6 +21,6 @@ public interface LoginContract {
 
         void loginSuccess(LoginProfile loginProfile);
 
-        void loginFailureMessage();
+        void loginFailureMessage(String message);
     }
 }

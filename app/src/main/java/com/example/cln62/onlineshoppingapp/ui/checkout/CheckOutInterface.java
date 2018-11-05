@@ -6,6 +6,8 @@ public interface CheckOutInterface {
         void applyCouponConfirm(double couponNum);
 
         void applyDiscount(String discount);
+
+        void refreshPayment();
     }
 
     interface Presenter{

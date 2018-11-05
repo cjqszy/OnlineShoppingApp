@@ -36,12 +36,12 @@ public class SignupActivity extends AppCompatActivity implements SignupContract.
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (editTextMobile.getText().toString().length() < 10) {
-                    Toast.makeText(SignupActivity.this, "The length of mobile number should be greater than 10",
+                if (editTextMobile.getText().toString().length() != 10) {
+                    Toast.makeText(SignupActivity.this, "The length of mobile number should be 10",
                             Toast.LENGTH_SHORT).show();
                 }
-                if (editTextPwd.getText().toString().length() < 10) {
-                    Toast.makeText(SignupActivity.this, "The length of password should be greater than 10",
+                if (editTextPwd.getText().toString().length() < 6) {
+                    Toast.makeText(SignupActivity.this, "The length of password should be at least 6",
                             Toast.LENGTH_SHORT).show();
                 }
                 signupPresenter.signup();
@@ -72,6 +72,11 @@ public class SignupActivity extends AppCompatActivity implements SignupContract.
         String pwd = editTextPwd.getText().toString();
 
         networkSignIn = new NetworkSignUp();
-        networkSignIn.signup(new SignupProfile(fn, ln, em, ad, mb, pwd));
+        networkSignIn.signup(this, new SignupProfile(fn, ln, em, ad, mb, pwd));
+    }
+
+    @Override
+    public void registrtionSuccess() {
+        Toast.makeText(this, "Successfully registered!", Toast.LENGTH_SHORT).show();
     }
 }

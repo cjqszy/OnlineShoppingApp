@@ -88,4 +88,25 @@ public class CartDao implements CartInterface {
         return list;
     }
 
+    @Override
+    public void addQuantity(int pid, int quantity) {
+        String sql = "UPDATE " + Entry.TABLE_NAME + " SET quantity =" + " " + quantity + " "
+                + "WHERE entryid=" + " " + pid + " ";
+        sqLiteDatabase.execSQL(sql);
+    }
+
+    @Override
+    public void deleteQuantity(int pid, int quantity) {
+        String sql = "UPDATE " + Entry.TABLE_NAME + " SET quantity =" + " " + quantity + " "
+                + "WHERE entryid=" + " " + pid + " ";
+        sqLiteDatabase.execSQL(sql);
+    }
+
+    @Override
+    public void removeItem(int pid) {
+        String sql = "DELETE FROM " + Entry.TABLE_NAME
+                + " WHERE entryid =" +  " " + pid + " ";
+        sqLiteDatabase.execSQL(sql);
+    }
+
 }

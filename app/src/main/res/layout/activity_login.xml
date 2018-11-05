@@ -11,7 +11,7 @@
         android:id="@+id/editTextMb"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="26dp"
         android:ems="10"
         android:hint="Mobile"
         android:inputType="textPersonName"
@@ -33,13 +33,13 @@
         android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="38dp"
+        android:layout_marginBottom="29dp"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextMb"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toBottomOf="@+id/editTextMb">
 
         <EditText
             android:id="@+id/etPassword"
@@ -57,18 +57,18 @@
             android:id="@+id/cbDisplayPassword"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:gravity="end"
+            android:layout_centerVertical="true"
             android:button="@drawable/selector_password"
-            android:checked="false" />
+            android:checked="false"
+            android:gravity="end" />
     </RelativeLayout>
 
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginEnd="42dp"
         android:layout_marginStart="42dp"
         android:background="@color/amazonColor"
@@ -83,7 +83,8 @@
         android:id="@+id/imageViewIcon"
         android:layout_width="100dp"
         android:layout_height="0dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginBottom="39dp"
+        android:layout_marginTop="48dp"
         app:layout_constraintBottom_toTopOf="@+id/editTextMb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,22 +95,32 @@
         android:id="@+id/textViewSignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="176dp"
-        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="20dp"
         android:text="New user? Sign up"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/login_button_face"
+        app:layout_constraintStart_toStartOf="@+id/checkBoxRemember"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxRemember" />
 
     <CheckBox
         android:id="@+id/checkBoxRemember"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="11dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginEnd="11dp"
         android:text="Remember me"
         app:layout_constraintBottom_toTopOf="@+id/textViewSignup"
-        app:layout_constraintEnd_toEndOf="@+id/textViewSignup"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
         app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button_face"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="58dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSignup" />
 </android.support.constraint.ConstraintLayout>

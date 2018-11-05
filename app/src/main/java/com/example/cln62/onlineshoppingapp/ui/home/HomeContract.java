@@ -19,6 +19,12 @@ public interface HomeContract {
         void categoryClicked(String cid, String scid);
 
         void addToCart(Product product);
+
+        void add(int i, int pid);
+
+        void delete(int i, int pid);
+
+        void remove(int pid);
     }
 
     interface View{

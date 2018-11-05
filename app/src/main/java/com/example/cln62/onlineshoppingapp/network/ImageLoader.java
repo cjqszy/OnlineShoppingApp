@@ -12,6 +12,7 @@ import com.example.cln62.onlineshoppingapp.constants.Constants;
 import com.example.cln62.onlineshoppingapp.pojo.CatSubcategory;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
 import com.example.cln62.onlineshoppingapp.ui.home.HomeActivity;
+import com.example.cln62.onlineshoppingapp.ui.home.HomeFragment;
 import com.example.cln62.onlineshoppingapp.utils.AppController;
 
 import org.json.JSONArray;
@@ -27,12 +28,14 @@ public class ImageLoader {
     private static final String tag_json_obj = Constants.TAG_JSON_OBJTAG;
     List<CatSubcategory> resList2;
     Context context;
+    HomeFragment homeFragment;
 
-    public ImageLoader(Context context) {
+    public ImageLoader(Context context, HomeFragment homeFragment) {
         this.context = context;
+        this.homeFragment = homeFragment;
     }
 
-    public List<CatSubcategory> loadCategoryImage(final String userId, final String apiKey) {
+    public void loadCategoryImage(final String userId, final String apiKey) {
 
         String url = Constants.CATEGORYURL
                 + apiKey + Constants.USERID + userId;
@@ -41,13 +44,14 @@ public class ImageLoader {
         Log.i("aaa4", apiKey);
         Log.i("aaa4", url);
 
-        final List<CatSubcategory> resList = new ArrayList<>();
+//        final List<CatSubcategory> resList = new ArrayList<>();
         JsonObjectRequest JsonReq = new JsonObjectRequest(Request.Method.GET,
                 url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i(TAG, response.toString());
                 Log.i(TAG, "request sent");
+                List<CatSubcategory> resList = new ArrayList<>();
                 try {
                     JSONArray jsonArray = response.getJSONArray("category");
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -58,6 +62,7 @@ public class ImageLoader {
                         String caterogyImageUrl = jsonObject.getString("cimagerl");
                         resList.add(new CatSubcategory(categoryId, caterogyName, caterogyDescription, caterogyImageUrl));
                     }
+                    homeFragment.initRecyclerViewFinished(resList);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -72,7 +77,7 @@ public class ImageLoader {
         });
         AppController.getInstance().addToRequestQueue(JsonReq, tag_json_obj);
 
-        return resList;
+//        return resList;
     }
 
     public List<CatSubcategory> loadSubCategoryImage(final String userId, final String apiKey, final String cid) {

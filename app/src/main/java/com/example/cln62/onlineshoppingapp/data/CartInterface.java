@@ -12,6 +12,12 @@ public interface CartInterface {
 
     List<Product> getCartList();
 
+    void addQuantity(int pid, int quantity);
+
+    void deleteQuantity(int pid, int quantity);
+
+    void removeItem(int pid);
+
 //    String getProductQuantity();
 
 }

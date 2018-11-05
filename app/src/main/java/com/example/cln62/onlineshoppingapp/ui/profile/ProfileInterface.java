@@ -4,9 +4,22 @@ public interface ProfileInterface {
 
     interface Presenter{
         void initProfile();
+
+        void resetPassword();
+
+        void resetPassword(PasswordResetActivity passwordResetActivity);
     }
 
-    interface View{
+    interface ProfileView{
         void initProfileConfirm();
+
+        void resetPasswordConfirm();
+    }
+
+    interface ResetPasswordView{
+
+        void resetPasswordConfirm();
+
+        void resetResponse(String message);
     }
 }

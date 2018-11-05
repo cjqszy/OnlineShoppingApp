@@ -1,10 +1,8 @@
 package com.example.cln62.onlineshoppingapp.ui.home;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,9 +20,8 @@ import com.example.cln62.onlineshoppingapp.network.ImageLoader;
 import com.example.cln62.onlineshoppingapp.pojo.CatSubcategory;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
 import com.example.cln62.onlineshoppingapp.ui.checkout.CartActivity;
-import com.example.cln62.onlineshoppingapp.ui.checkout.CheckOutActivity;
+import com.example.cln62.onlineshoppingapp.ui.history.OrderHistoryFragment;
 import com.example.cln62.onlineshoppingapp.ui.login.LoginActivity;
-import com.example.cln62.onlineshoppingapp.ui.product.ProductFragment;
 import com.example.cln62.onlineshoppingapp.ui.profile.ProfileActivity;
 
 import java.util.List;
@@ -38,10 +35,11 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     private Toolbar mToolbar;
     private TextView tv_toolbarTitle, tv_username;
     private ImageButton imageButtonCart;
-    String userId, apiKey;
+    String userId, apiKey, name, email;
     private ImageLoader imageLoader;
     HomeFragment homeFragment;
-
+    NavigationView navigationView;
+    TextView textViewName, textViewEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +47,12 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         setContentView(R.layout.activity_home);
         userId = getIntent().getStringExtra("id");
         apiKey = getIntent().getStringExtra("apikey");
-        Log.i("aaa2", userId);
+        name = getIntent().getStringExtra("name");
+        email = getIntent().getStringExtra("email");
+
+        navigationView = findViewById(R.id.nav_view);
+/*        textViewName = navigationView.findViewById(R.id.textview_name);
+        textViewEmail = navigationView.findViewById(R.id.textview_email);*/
 
         homePresenter = new HomePresenter(this);
         homePresenter.initView();
@@ -68,25 +71,30 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         int id = menuItem.getItemId();
 
         if (id == R.id.nav_home) {
-            Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
-            homeFragment = new HomeFragment();
-            Bundle bundle = new Bundle();
+            Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
+//            homeFragment = new HomeFragment();
+/*            Bundle bundle = new Bundle();
             bundle.putString("id", userId);
             bundle.putString("apikey", apiKey);
-            homeFragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_home, homeFragment, null).addToBackStack(null).commit();
+            homeFragment.setArguments(bundle);*/
+//            homeFragment.initRecyclerView(homeFragment.getView());
+           getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_home, homeFragment, "HomeFrag").addToBackStack(null).commit();
+            onBackPressed();
         }
         else if (id == R.id.nav_profile) {
             Intent homeIntent = new Intent(HomeActivity.this, ProfileActivity.class);
             startActivity(homeIntent);
         } else if (id == R.id.nav_orders) {
-/*            Intent categoryIntent = new Intent(HomeActivity.this, CategoryActivity.class);
-            startActivity(categoryIntent);*/
-        } else if (id == R.id.nav_wishlists) {
-
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_home, new OrderHistoryFragment(), null).addToBackStack(null).commit();
+            Log.i(TAG, "1");
         } else if (id == R.id.nav_topsellers) {
-/*            Intent wishListIntent = new Intent(HomeActivity.this, WishListActivity.class);
-            startActivity(wishListIntent);*/
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_home, new TopSellerFragment()).
+                    addToBackStack(null)
+                    .commit();
 
         } else if (id == R.id.nav_setting) {
 
@@ -95,6 +103,10 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         }  else if (id == R.id.nav_logout) {
             Intent i = new Intent(this, LoginActivity.class);
             startActivity(i);
+/*            Intent i = getBaseContext().getPackageManager()
+                    .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);*/
         }
 
 //        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -123,14 +135,20 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View head = navigationView.getHeaderView(0);
+        textViewName = head.findViewById(R.id.textview_name);
+        textViewEmail = head.findViewById(R.id.textview_email);
+        textViewName.setText(name);
+        textViewEmail.setText(email);
 
         //recycler view
         homeFragment = new HomeFragment();
-        Bundle bundle = new Bundle();
+/*        Bundle bundle = new Bundle();
         bundle.putString("id", userId);
         bundle.putString("apikey", apiKey);
-        homeFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_home, homeFragment, "HomeFrag").commit();
+        homeFragment.setArguments(bundle);*/
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_home, homeFragment, "HomeFrag").commit();
 
     }
 
@@ -158,7 +176,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     @Override
     public void categoryClickedConfirmed(String cid) {
-        imageLoader = new ImageLoader(this);
+        imageLoader = new ImageLoader(this, homeFragment);
         imageLoader.loadSubCategoryImage(userId, apiKey, cid);
     }
 
@@ -194,7 +212,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     @Override
     public void categoryClickedConfirmed(String cid, String scid) {
-        imageLoader = new ImageLoader(this);
+        imageLoader = new ImageLoader(this, homeFragment);
         imageLoader.loadProductList(userId, apiKey, cid, scid);
     }
 
@@ -206,6 +224,11 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview_home);
         mRecyclerView.setAdapter(mAdapter);*/
         homeFragment.showProductListConfirm(resList);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override

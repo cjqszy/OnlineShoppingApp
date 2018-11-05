@@ -19,10 +19,12 @@ import com.example.cln62.onlineshoppingapp.constants.Constants;
 import com.example.cln62.onlineshoppingapp.data.CartDao;
 import com.example.cln62.onlineshoppingapp.network.NetworkApplyCoupon;
 import com.example.cln62.onlineshoppingapp.pojo.Product;
+import com.example.cln62.onlineshoppingapp.ui.home.HomePresenter;
 
 import java.util.List;
 
-public class CartActivity extends AppCompatActivity implements CheckOutInterface.View{
+public class CartActivity extends AppCompatActivity implements CheckOutInterface.View,
+        CartAdapter.ClickListener{
 
     CheckOutPresenter checkOutPresenter;
     private CartDao cartDAO;
@@ -30,10 +32,11 @@ public class CartActivity extends AppCompatActivity implements CheckOutInterface
     List<Product> cartList;
     ProductListAdapter cartListAdapter;
     Button buttonCheckout, buttonContinueShopping;
-    TextView textViewTotal, textViewCoupon;
+    TextView textViewSubTotal, textViewTax, textViewTotal, textViewCoupon;
     boolean couponApplied;
     private ArrayAdapter<String> adapter;
     double sum;
+    HomePresenter homePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +45,24 @@ public class CartActivity extends AppCompatActivity implements CheckOutInterface
         checkOutPresenter = new CheckOutPresenter(this);
         buttonCheckout = findViewById(R.id.button_checkout);
         buttonContinueShopping = findViewById(R.id.button_continue_shopping);
+        textViewSubTotal = findViewById(R.id.tv_subTotal);
+        textViewTax = findViewById(R.id.tv_tax);
         textViewTotal = findViewById(R.id.tv_total);
         textViewCoupon = findViewById(R.id.tv_coupon);
+        homePresenter = new HomePresenter(this);
 
         initDatabase();
         initView();
 
+
         buttonCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (sum < 1) {
+                    Toast.makeText(CartActivity.this,
+                            "No item in the cart, contnue shopping", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent i = new Intent(CartActivity.this, CheckOutActivity.class);
                 i.putExtra("payment", sum);
                 startActivity(i);
@@ -67,6 +79,11 @@ public class CartActivity extends AppCompatActivity implements CheckOutInterface
         textViewCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (sum < 1) {
+                    Toast.makeText(CartActivity.this,
+                            "No item in the cart, contnue shopping", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (!couponApplied) {
                     checkOutPresenter.applyCoupon(Constants.COUPON_NUMBER);
                     couponApplied = true;
@@ -82,6 +99,7 @@ public class CartActivity extends AppCompatActivity implements CheckOutInterface
         recyclerView = findViewById(R.id.recyclerview_cart);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         CartAdapter cartAdapter = new CartAdapter(this, cartList);
+        cartAdapter.setOnItemClickListener(this);
 //        cartListAdapter = new ProductListAdapter(this, cartList);
 
         recyclerView.setAdapter(cartAdapter);
@@ -94,6 +112,10 @@ public class CartActivity extends AppCompatActivity implements CheckOutInterface
             int totalPrice = Integer.parseInt(price) * Integer.parseInt(quantity);
             sum += totalPrice;
         }
+
+        textViewSubTotal.setText("$" + String.valueOf(sum));
+        textViewTax.setText("$" + String.valueOf(sum * 0.1));
+        sum *= 1.1;
         textViewTotal.setText("$" + String.valueOf(sum));
 
     }
@@ -119,10 +141,44 @@ public class CartActivity extends AppCompatActivity implements CheckOutInterface
     public void applyDiscount(String discount) {
         double disc = Double.parseDouble(discount);
         double totalOld = Double.parseDouble((textViewTotal.getText().toString().substring(1)));
-        String total = String.valueOf((totalOld * (100 - disc) * 0.1));
+        String total = String.valueOf((totalOld * (100 - disc) * 0.01));
         sum = Double.parseDouble(total);
-        textViewTotal.setText(total);
+        textViewTotal.setText("$" + sum);
         Log.i("adsad", String.valueOf(disc));
         Toast.makeText(this, "You get a discount of " + disc + "% with this coupon", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void refreshPayment() {
+
+        int subtotal = 0;
+        for (int i = 0; i < cartList.size(); i++) {
+            subtotal = subtotal + (Integer.parseInt(cartList.get(i).getPrize())
+                    * Integer.parseInt(cartList.get(i).getQuantity()));
+        }
+
+        double taxes = (double) (subtotal * 0.1);
+        double total = subtotal + taxes;
+        textViewSubTotal.setText("$" + subtotal);
+        textViewTax.setText("$" + taxes);
+        textViewTotal.setText("$" + total);
+    }
+
+    @Override
+    public void addClicked(View view, int position, int quantity) {
+        int Pid = Integer.parseInt(cartList.get(position).getId());
+        homePresenter.add(Pid, quantity);
+    }
+
+    @Override
+    public void deleteClicked(View view, int position, int quantity) {
+        int Pid = Integer.parseInt(cartList.get(position).getId());
+        homePresenter.delete(Pid, quantity);
+    }
+
+    @Override
+    public void removeClicked(View v, int position) {
+        int Pid = Integer.parseInt(cartList.get(position).getId());
+        homePresenter.remove(Pid);
     }
 }

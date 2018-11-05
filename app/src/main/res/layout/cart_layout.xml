@@ -84,6 +84,25 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:src="@drawable/ic_delete" />-->
+                <TextView
+                    android:id="@+id/tv_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="50dp"
+                    android:text="Add"/>
+
+<!--                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:text="Add"/>-->
+
+                <TextView
+                    android:id="@+id/tv_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/small_size"
+                    android:text="Delete"/>
 
             </LinearLayout>
 
