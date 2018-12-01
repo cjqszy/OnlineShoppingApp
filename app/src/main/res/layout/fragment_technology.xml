@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView_technology"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        android:text=" Splash screen \n Animation\n Progress bar \n Sharepreferences \n Asynctask \n Espresso test \n Volley \n Picasso \n Paypall API \n Custom view \n Custom Adapter \n RecyclerView \n CardView \n Sigle signon \n JSON Parsing \n Material design \n SQLitedatabase \n MVP Patern \n Kankan broard \n "
+        android:textSize="20sp" />
+
+
+</android.support.constraint.ConstraintLayout>

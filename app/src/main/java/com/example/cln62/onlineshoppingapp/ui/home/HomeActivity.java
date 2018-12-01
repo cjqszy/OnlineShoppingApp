@@ -33,7 +33,6 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     HomePresenter homePresenter;
     private static final String TAG = "homeactivity";
     private Toolbar mToolbar;
-    private TextView tv_toolbarTitle, tv_username;
     private ImageButton imageButtonCart;
     String userId, apiKey, name, email;
     private ImageLoader imageLoader;
@@ -98,7 +97,12 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
         } else if (id == R.id.nav_setting) {
 
-        } else if (id == R.id.nav_service) {
+        } else if (id == R.id.nav_technology) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_home, new TechnologyFragment()).
+                    addToBackStack(null)
+                    .commit();
 
         }  else if (id == R.id.nav_logout) {
             Intent i = new Intent(this, LoginActivity.class);
@@ -229,45 +233,6 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void dataTransferMethod(Product product) {
-
-/*        Bundle bundle = new Bundle();
-        bundle.putString("id", product.getId());
-        bundle.putString("pname", product.getPname());
-        bundle.putString("quantity", product.getQuantity());
-        bundle.putString("prize", product.getPrize());
-        bundle.putString("description", product.getDescription());
-        bundle.putString("image", product.getImage());
-
-        ProductFragment productFragment = new ProductFragment();
-        productFragment.setArguments(bundle);*/
-
-//        getSupportFragmentManager().beginTransaction().replace(R.id.content_home, productFragment, null).addToBackStack(null).commit();
-
-/*        Intent i = new Intent(this, ProductActivity.class);
-        i.putExtra("id", product.getId());
-        i.putExtra("pname", product.getPname());
-        i.putExtra("quantity", product.getQuantity());
-        i.putExtra("prize", product.getPrize());
-        i.putExtra("description", product.getDescription());
-        i.putExtra("image", product.getImage());
-        startActivity(i);*/
-
-
-/*        Bundle bundle = new Bundle();
-        bundle.putString("pname", product.getPname());
-        bundle.putString("quantity", product.getQuantity());
-        bundle.putString("prize", product.getPrize());
-        bundle.putString("discription", product.getDescription());
-        bundle.putString("image", product.getImage());
-        ProductFragment productFragment = new ProductFragment();
-        productFragment.setArguments(bundle);
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_home, productFragment).addToBackStack("home_page").commit();*/
-
     }
 
 }

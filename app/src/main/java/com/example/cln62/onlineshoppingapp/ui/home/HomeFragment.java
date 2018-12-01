@@ -1,5 +1,6 @@
 package com.example.cln62.onlineshoppingapp.ui.home;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,6 +38,7 @@ public class HomeFragment extends Fragment implements RecyclerviewHomeAdapter.On
     List<CatSubcategory> subCategory;
     List<Product> productList;
     MySharedPrefences mySharedPrefences;
+    private ProgressDialog progress;
 
     @Nullable
     @Override
@@ -66,10 +68,16 @@ public class HomeFragment extends Fragment implements RecyclerviewHomeAdapter.On
 
         setRetainInstance(true);
 
+        progress = new ProgressDialog(getActivity());
+        progress.setTitle("MAIN CAT LOADING");
+        progress.setCancelable(false);
+        progress.show();
 
 //        imageLoader = new ImageLoader(getContext());
         imageLoader = new ImageLoader(getContext(), this);
         imageLoader.loadCategoryImage(userId, apiKey);
+
+
 
 //        list = imageLoader.loadCategoryImage(userId, apiKey);
         /*mAdapter = new RecyclerviewHomeAdapter(list, getContext());
@@ -163,6 +171,8 @@ public class HomeFragment extends Fragment implements RecyclerviewHomeAdapter.On
     }
 
     public void initRecyclerViewFinished(List<CatSubcategory> resList) {
+
+        progress.dismiss();
 
         list = resList;
         mAdapter = new RecyclerviewHomeAdapter(resList, getContext());

@@ -37,7 +37,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         Product product = productList.get(position);
         viewHolder.tv_pname.setText(product.getPname());
-        viewHolder.tv_price.setText(product.getPrize());
+        viewHolder.tv_price.setText("$" + product.getPrize());
         viewHolder.tv_shipping.setText(Constants.FREESHIPPING);
         Picasso.with(ctx)
                 .load(product.getImage())

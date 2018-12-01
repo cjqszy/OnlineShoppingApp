@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         networkLogIn = new NetworkLogIn(LoginActivity.this);
-                        networkLogIn.login("5732027777", "777777", LoginActivity.this);
+                        networkLogIn.login("5732023456", "222222", LoginActivity.this);
                     }
 
                     @Override

@@ -35,9 +35,9 @@
                 android:icon="@drawable/ic_menu_manage"
                 android:title="Settings" />
             <item
-                android:id="@+id/nav_service"
+                android:id="@+id/nav_technology"
                 android:icon="@drawable/ic_menu_service"
-                android:title="Customer Service" />
+                android:title="Technology" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_menu_logout"

@@ -1,5 +1,6 @@
 package com.example.cln62.onlineshoppingapp.ui.home;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,7 +39,11 @@ public class TopSellerFragment extends Fragment {
         rv_Topseller = view.findViewById(R.id.rv_TopSeller);
 
         networkTopSeller = new NetworkTopSeller(this);
-        networkTopSeller.getTopSeller();
+
+        getAsyncTask getTask = new getAsyncTask(networkTopSeller);
+
+        getTask.execute();
+
         return view;
     }
 
@@ -47,5 +52,21 @@ public class TopSellerFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rv_Topseller.setLayoutManager(layoutManager);
         rv_Topseller.setAdapter(adapter);
+    }
+
+    private class getAsyncTask extends AsyncTask<Void, Void ,Void>
+    {
+
+        private NetworkTopSeller networkTopSeller;
+
+        public getAsyncTask(NetworkTopSeller networkTopSeller) {
+            this.networkTopSeller = networkTopSeller;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            networkTopSeller.getTopSeller();
+            return null;
+        }
     }
 }

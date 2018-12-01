@@ -43,7 +43,6 @@ public interface HomeContract {
 
         void showProductList(List<Product> resList);
 
-        void dataTransferMethod(Product product);
     };
 
     interface FragmentView{
